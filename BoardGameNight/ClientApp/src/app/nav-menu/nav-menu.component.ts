@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { GoogleLoginProvider, SocialAuthService, SocialUser } from 'angularx-social-login';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-nav-menu',
@@ -10,8 +11,8 @@ export class NavMenuComponent {
   isExpanded = false;
   user: SocialUser = {} as SocialUser;
   loggedIn: boolean = false;
-
-  constructor(private authService: SocialAuthService) { }
+  
+  constructor(private authService: SocialAuthService, private userService:UserService) { }
 
   ngOnInit(): void {
 
@@ -31,6 +32,9 @@ export class NavMenuComponent {
 
   signInWithGoogle(): void {
     this.authService.signIn(GoogleLoginProvider.PROVIDER_ID);
+    this.userService.createNew(this.user.id).subscribe((response:any)=> { 
+      console.log(response);
+    });
     }
   
     signOut(): void {
