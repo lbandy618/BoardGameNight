@@ -26,65 +26,65 @@ export class BoardgameapiService {
   }
 
   // https://api.boardgameatlas.com/api/game/mechanics?client_id=
-    getBoardGameMechanics(boardgamemechanics:string):any{
-      return this.http.get(`${this.url}/api/game/mechanics?client_id=${Secret.clientID}`)
-    }
+  getBoardGameMechanics(boardgamemechanics:string):any{
+    return this.http.get(`${this.url}/api/game/mechanics?client_id=${Secret.clientID}`)
+  }
 
-    // https://api.boardgameatlas.com/api/search?mechanics=R0bGq4cAl4&client_id=
-    getBoardGameMechanicsByID(boardgamemechanicsid:string):any{
-      return this.http.get(`${this.url}/api/search?mechanics=${boardgamemechanicsid}&client_id=${Secret.clientID}`)
-    }
+  // https://api.boardgameatlas.com/api/search?mechanics=R0bGq4cAl4&client_id=
+  getBoardGameMechanicsByID(boardgamemechanicsid:string):any{
+    return this.http.get(`${this.url}/api/search?mechanics=${boardgamemechanicsid}&client_id=${Secret.clientID}`)
+  }
 
-      // https://api.boardgameatlas.com/api/game/categories?client_id=
-      getBoardGameCategories(boardgamecategories:string):any{
-        return this.http.get(`${this.url}/api/game/category?client_id=${Secret.clientID}`)
-      }
+  // https://api.boardgameatlas.com/api/game/categories?client_id=
+  getBoardGameCategories(boardgamecategories:string):any{
+    return this.http.get(`${this.url}/api/game/category?client_id=${Secret.clientID}`)
+  }
+
+  // https://api.boardgameatlas.com/api/search?categories=R0bGq4cAl4&client_id=
+  getBoardGameCategoriesByID(boardgamecategoriesid:string):any{
+    return this.http.get(`${this.url}/api/search?category=${boardgamecategoriesid}&client_id=${Secret.clientID}`)
+  }
+
+  //https://api.boardgameatlas.com/api/search?lt_min_age=10&client_id=
+  getBoardGameByMinAge(minAge:number):any {
+    return this.http.get(`${this.url}/api/search?lt_min_age=${minAge}&client_id=${Secret.clientID}`)
+  }
+
+  //https://api.boardgameatlas.com/api/search?primary_publisher=jVKDlz7qmo&client_id=
+  getBoardGamesByPublisher(publisherName:string):any{
+    return this.http.get(`${this.url}/api/search?primary_publisher=${publisherName}&client_id=${Secret.clientID}`)
+  }
+
+  //https://api.boardgameatlas.com/api/search?year_published=2020&client_id=
+  getBoardGamePublishedYear(boardgamePublishedYear:number):any{
+    return this.http.get(`${this.url})/api/search?year_published=${boardgamePublishedYear}&client_id=${Secret.clientID}`)
+  }
+
+  //https://api.boardgameatlas.com/api/search?max_players=5&client_id=
+  getBoardGameMaxPlayers(boardgameMaxPlayers:number):any{
+    return this.http.get(`${this.url})/api/search?max_players=${boardgameMaxPlayers}&client_id=${Secret.clientID}`)
+  }
+
+  getBoardGameMinPlayers(boardgameMinPlayers:number):any{
+  return this.http.get(`${this.url})/api/search?min_players=${boardgameMinPlayers}&client_id=${Secret.clientID}`)
+  }
+
+  // https://api.boardgameatlas.com/api/search?ids=OIXt3DmJU0&fields=image_url&client_id=
+  getBoardGameImagesByGameID(gameID:string):any{
+    return this.http.get(`${this.url}/api/search?ids=${gameID}&fields=image_url&client_id=${Secret.clientID}`)
+  }
   
-      // https://api.boardgameatlas.com/api/search?categories=R0bGq4cAl4&client_id=
-      getBoardGameCategoriesByID(boardgamecategoriesid:string):any{
-        return this.http.get(`${this.url}/api/search?category=${boardgamecategoriesid}&client_id=${Secret.clientID}`)
-      }
+  getBoardGamesOrderedBy(reorderBoardGames:string):any{
+    return this.http.get(`${this.url})/api/search?order_by=${reorderBoardGames}&client_id=${Secret.clientID}`)
+  }
 
-      //https://api.boardgameatlas.com/api/search?lt_min_age=10&client_id=
-      getBoardGameByMinAge(minAge:number):any {
-        return this.http.get(`${this.url}/api/search?lt_min_age=${minAge}&client_id=${Secret.clientID}`)
-      }
+  getBoardGameMaxPlayTime(boardgameMaxPlayTime:number):any{
+    return this.http.get(`${this.url})/api/search?max_playtime=${boardgameMaxPlayTime}&client_id=${Secret.clientID}`)
+    }
 
-      //https://api.boardgameatlas.com/api/search?primary_publisher=jVKDlz7qmo&client_id=
-      getBoardGamesByPublisher(publisherName:string):any{
-        return this.http.get(`${this.url}/api/search?primary_publisher=${publisherName}&client_id=${Secret.clientID}`)
-      }
-
-      //https://api.boardgameatlas.com/api/search?year_published=2020&client_id=
-      getBoardGamePublishedYear(boardgamePublishedYear:number):any{
-        return this.http.get(`${this.url})/api/search?year_published=${boardgamePublishedYear}&client_id=${Secret.clientID}`)
-      }
-
-      //https://api.boardgameatlas.com/api/search?max_players=5&client_id=
-      getBoardGameMaxPlayers(boardgameMaxPlayers:number):any{
-       return this.http.get(`${this.url})/api/search?max_players=${boardgameMaxPlayers}&client_id=${Secret.clientID}`)
-      }
-
-      getBoardGameMinPlayers(boardgameMinPlayers:number):any{
-      return this.http.get(`${this.url})/api/search?min_players=${boardgameMinPlayers}&client_id=${Secret.clientID}`)
-      }
-
-     // https://api.boardgameatlas.com/api/search?ids=OIXt3DmJU0&fields=image_url&client_id=
-      getBoardGameImagesByGameID(gameID:string):any{
-        return this.http.get(`${this.url}/api/search?ids=${gameID}&fields=image_url&client_id=${Secret.clientID}`)
-      }
-      
-      getBoardGamesOrderedBy(reorderBoardGames:string):any{
-        return this.http.get(`${this.url})/api/search?order_by=${reorderBoardGames}&client_id=${Secret.clientID}`)
-      }
-
-      getBoardGameMaxPlayTime(boardgameMaxPlayTime:number):any{
-        return this.http.get(`${this.url})/api/search?max_playtime=${boardgameMaxPlayTime}&client_id=${Secret.clientID}`)
-       }
- 
-       getBoardGameMinPlayTime(boardgameMinPlayTime:number):any{
-        return this.http.get(`${this.url})/api/search?max_playtime=${boardgameMinPlayTime}&client_id=${Secret.clientID}`)
-       }
+  getBoardGameMinPlayTime(boardgameMinPlayTime:number):any{
+  return this.http.get(`${this.url})/api/search?max_playtime=${boardgameMinPlayTime}&client_id=${Secret.clientID}`)
+  }
 
      
       
