@@ -17,6 +17,7 @@ namespace BoardGameNight.Models
         public string LoginId { get; set; } = null!;
         public int? Age { get; set; }
         public string? Summary { get; set; }
+        public string? UserName { get; set; }
 
         public virtual ICollection<OwnedGame> OwnedGames { get; set; }
         public virtual ICollection<Preference> Preferences { get; set; }
