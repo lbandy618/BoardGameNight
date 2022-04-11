@@ -1,0 +1,24 @@
+export interface Preferences {
+    id: number;
+    categories: string;
+    mechanics: string;
+    maxTime: number;
+    publisher: string;
+    yearPublished: number;
+    userId: number;
+    ownedId: number;
+
+    owned: any[];
+    user: any[];
+}
+public int Id { get; set; }
+public string? Categories { get; set; }
+public string? Mechanics { get; set; }
+public double? MaxTime { get; set; }
+public string? Publisher { get; set; }
+public int? YearPublished { get; set; }
+public int? UserId { get; set; }
+public int? OwnedId { get; set; }
+
+public virtual GameShelf? Owned { get; set; }
+public virtual User? User { get; set; }

@@ -24,4 +24,13 @@ export class SessionService {
     return this.http.patch(fullUrl, session);
   }
 
+  editTimePlayed(session:Session, timePlayed:number){
+    let fullUrl:string = this.baseUrl + this.endpoint + `?timePlayed=${timePlayed}`;
+    return this.http.patch(fullUrl, session);
+  }
+
+  editEnjoyment(session:Session, enjoyment:number){
+    let fullUrl:string =  this.baseUrl + this.endpoint + `?enjoyment=${enjoyment}`;
+    return this.http.patch(fullUrl, session);
+  }
 }
