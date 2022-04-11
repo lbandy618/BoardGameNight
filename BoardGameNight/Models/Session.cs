@@ -17,7 +17,7 @@ namespace BoardGameNight.Models
         public int? Enjoyment { get; set; }
         public int? OwnedId { get; set; }
 
-        public virtual OwnedGame? Owned { get; set; }
+        public virtual GameShelf? Owned { get; set; }
         public virtual ICollection<Event> Events { get; set; }
         public virtual ICollection<SessionAttendee> SessionAttendees { get; set; }
     }

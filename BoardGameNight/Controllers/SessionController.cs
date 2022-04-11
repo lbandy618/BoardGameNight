@@ -28,33 +28,32 @@ namespace BoardGameNight.Controllers
             return newSession;
         }
 
-        //[HttpPatch("AddWinner")]
-        //public Session addWinner(int sessionId, int userId)
-        //{
-        //   context.Sessions.Update(new Session()
-        //   {
-        //       Winner == userId,
-               
-        //   })
-        //}
+        [HttpPatch("editWinner")]
+        public void editWinner(Session updatedSession, int userId)
+        {
+            User user = new User();
+            user = context.Users.Find(userId);
+            updatedSession.Winner = user.UserName;
+            context.Sessions.Update(updatedSession);
+            context.SaveChanges();
+        }
 
 
-        //[HttpGet("timePlayed")]
-        //public double getTimePlayed(Session session)
-        //{
-        //    return context.Sessions.
-        //}
+        [HttpPatch("editTimePlayed")]
+        public void editTimePlayed(Session updatedSession, double timePlayed)
+        {
+            updatedSession.TimePlayed = timePlayed;
+            context.Sessions.Update(updatedSession);
+            context.SaveChanges();
+        }
 
-        //[HttpPatch]
-        //public Session editSession(Session newSession)
-        //{
-
-        //}
-
-
-
-
-
+        [HttpPatch("editEnjoyment")]
+        public void editEnjoyment(Session updatedSession, int enjoyment)
+        {
+            updatedSession.Enjoyment = enjoyment;
+            context.Sessions.Update(updatedSession);
+            context.SaveChanges();
+        }
 
     }
 }

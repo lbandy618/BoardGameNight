@@ -17,7 +17,7 @@ namespace BoardGameNight.Models
         }
 
         public virtual DbSet<Event> Events { get; set; } = null!;
-        public virtual DbSet<OwnedGame> OwnedGames { get; set; } = null!;
+        public virtual DbSet<GameShelf> OwnedGames { get; set; } = null!;
         public virtual DbSet<Preference> Preferences { get; set; } = null!;
         public virtual DbSet<Session> Sessions { get; set; } = null!;
         public virtual DbSet<SessionAttendee> SessionAttendees { get; set; } = null!;
@@ -51,7 +51,7 @@ namespace BoardGameNight.Models
                     .HasConstraintName("FK__Event__SessionID__74AE54BC");
             });
 
-            modelBuilder.Entity<OwnedGame>(entity =>
+            modelBuilder.Entity<GameShelf>(entity =>
             {
                 entity.ToTable("OwnedGame");
 
