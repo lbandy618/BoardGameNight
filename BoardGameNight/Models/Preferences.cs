@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace BoardGameNight.Models
 {
-    public partial class Preference
+    public partial class Preferences
     {
         public int Id { get; set; }
         public string? Categories { get; set; }

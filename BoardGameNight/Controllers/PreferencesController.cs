@@ -11,20 +11,20 @@ namespace BoardGameNight.Controllers
         BoardGameNightDBContext context = new BoardGameNightDBContext();
 
         [HttpGet]
-        public List<Preference> GetAllPreferences()
+        public List<Preferences> GetAllPreferences()
         {
             return context.Preferences.ToList();
         }
 
         [HttpGet("ByUserId/{userId}")]
-        public Preference GetPreferencesByUserId(int userId)
+        public Preferences GetPreferencesByUserId(int userId)
         {
             return context.Preferences.Where(p => p.UserId == userId).FirstOrDefault();
         }
 
         
         [HttpPatch("editCategory")]
-        public void editCategory(Preference updatedPreference, string category)
+        public void editCategory(Preferences updatedPreference, string category)
         {
             updatedPreference.Categories = category;
             context.Preferences.Update(updatedPreference);
@@ -36,6 +36,23 @@ namespace BoardGameNight.Controllers
         {
 
         }
+
+        [HttpPatch("byMaxTime")]
+        public void AddMaxTime(double maxTime, Preferences updatedPreference)
+        {
+            updatedPreference.MaxTime = maxTime;
+            context.Preferences.Update(updatedPreference);
+            context.SaveChanges();
+        }
+
+        [HttpPatch("byYearPublished")]
+        public void AddYearPublished(int yearPulished, Preferences updatedPreference)
+        {
+            updatedPreference.YearPublished = yearPulished;
+            context.Preferences.Update(updatedPreference);
+            context.SaveChanges();
+        }
+
 
     }
 }
