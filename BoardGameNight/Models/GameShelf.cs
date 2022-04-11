@@ -7,7 +7,7 @@ namespace BoardGameNight.Models
     {
         public GameShelf()
         {
-            Preferences = new HashSet<Preference>();
+            Preferences = new HashSet<Preferences>();
             Sessions = new HashSet<Session>();
         }
 
@@ -17,7 +17,7 @@ namespace BoardGameNight.Models
         public int? UserId { get; set; }
 
         public virtual User? User { get; set; }
-        public virtual ICollection<Preference> Preferences { get; set; }
+        public virtual ICollection<Preferences> Preferences { get; set; }
         public virtual ICollection<Session> Sessions { get; set; }
     }
 }

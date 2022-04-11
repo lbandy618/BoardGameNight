@@ -18,7 +18,7 @@ namespace BoardGameNight.Models
 
         public virtual DbSet<Event> Events { get; set; } = null!;
         public virtual DbSet<GameShelf> OwnedGames { get; set; } = null!;
-        public virtual DbSet<Preference> Preferences { get; set; } = null!;
+        public virtual DbSet<Preferences> Preferences { get; set; } = null!;
         public virtual DbSet<Session> Sessions { get; set; } = null!;
         public virtual DbSet<SessionAttendee> SessionAttendees { get; set; } = null!;
         public virtual DbSet<User> Users { get; set; } = null!;
@@ -69,7 +69,7 @@ namespace BoardGameNight.Models
                     .HasConstraintName("FK__OwnedGame__UserI__6754599E");
             });
 
-            modelBuilder.Entity<Preference>(entity =>
+            modelBuilder.Entity<Preferences>(entity =>
             {
                 entity.Property(e => e.Id).HasColumnName("ID");
 
