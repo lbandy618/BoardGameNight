@@ -15,7 +15,7 @@ return this.http.get(`${ this.baseUrl }api/User/login?loginId=${ loginId}`);
 }
 
 createuser(newUser:User){
-  return this.http.post(`${ this.baseUrl }api/User`,{newUser});
+  return this.http.post(`${ this.baseUrl }api/User`, {newUser});
 }
 
 getUsers():Observable<User[]>{

@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace BoardGameNight.Models
 {
-    public partial class OwnedGame
+    public partial class GameShelf
     {
-        public OwnedGame()
+        public GameShelf()
         {
             Preferences = new HashSet<Preference>();
             Sessions = new HashSet<Session>();
