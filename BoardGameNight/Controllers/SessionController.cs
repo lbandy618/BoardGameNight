@@ -18,6 +18,7 @@ namespace BoardGameNight.Controllers
         public List<Session> getAllSessions()
         {
             return context.Sessions.ToList();
+
         }
 
         [HttpPost("createSession")]
