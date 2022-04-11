@@ -54,5 +54,15 @@ namespace BoardGameNight.Controllers
             context.SaveChanges();
             return newEvent;
         }
+
+        [HttpDelete("Delete/{eventId}")]
+        public Event deleteEvent(int Id)
+        {
+            Event result = null;
+            result = context.Events.FirstOrDefault(e => e.Id == Id);
+            context.Events.Remove(result);
+            context.SaveChanges();
+            return result;
+        }
     }
 }

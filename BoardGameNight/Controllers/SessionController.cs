@@ -20,19 +20,37 @@ namespace BoardGameNight.Controllers
             return context.Sessions.ToList();
         }
 
+        [HttpPost("createSession")]
+        public Session createSession(Session newSession)
+        {
+            context.Sessions.Add(newSession);
+            context.SaveChanges();
+            return newSession;
+        }
 
-        //[HttpPost("createSession")]
-        //public Session createSession(Session session)
+        //[HttpPatch("AddWinner")]
+        //public Session addWinner(int sessionId, int userId)
         //{
-            
+        //   context.Sessions.Update(new Session()
+        //   {
+        //       Winner == userId,
+               
+        //   })
         //}
 
 
         //[HttpGet("timePlayed")]
-        //public double getTimePlayed()
-        //{   
-            
+        //public double getTimePlayed(Session session)
+        //{
+        //    return context.Sessions.
         //}
+
+        //[HttpPatch]
+        //public Session editSession(Session newSession)
+        //{
+
+        //}
+
 
 
 
