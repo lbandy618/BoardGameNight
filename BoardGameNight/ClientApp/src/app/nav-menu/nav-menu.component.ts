@@ -31,9 +31,10 @@ export class NavMenuComponent {
   }
 
   signInWithGoogle(): void {
-    this.authService.signIn(GoogleLoginProvider.PROVIDER_ID);
-    this.userService.createNew(this.user.id).subscribe((response:any)=> { 
-      console.log(response);
+    this.authService.signIn(GoogleLoginProvider.PROVIDER_ID).then((response:any) =>{
+      this.userService.createNew(this.user.id).subscribe((response:any)=> { 
+        console.log(response);
+      });
     });
     }
   
