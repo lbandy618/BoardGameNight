@@ -2,6 +2,16 @@
     <input type="text" name="name" ngModel>
     <button>Search</button>
 </form>
+
 <div *ngFor="let g of gameSearch.games">
-    {{g.name}}
+    <button (click)="selectGameFromSearch(g)"> {{g.name}} </button>
+</div>
+<div>
+    <h1>
+       {{ selectedGame.name }} 
+       
+    </h1>
+    <img src="{{ selectedGame.thumb_url}}">
+    <p>{{ selectedGame.description }}</p>
+    
 </div>

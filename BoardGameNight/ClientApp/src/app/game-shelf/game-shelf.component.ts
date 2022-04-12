@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { ApiGame } from '../ApiGame';
+import { ApiGame, GameElement } from '../ApiGame';
 import { BoardgameapiService } from '../boardgameapi.service';
 import { GameShelfService } from '../game-shelf.service';
 
@@ -11,6 +11,8 @@ import { GameShelfService } from '../game-shelf.service';
 })
 export class GameShelfComponent implements OnInit {
 gameSearch:ApiGame = {} as ApiGame;
+selectedGame:GameElement = {} as GameElement;
+
   constructor(private apiService:BoardgameapiService, private gameShelfService:GameShelfService) { }
 
   ngOnInit(): void {
@@ -25,13 +27,13 @@ gameSearch:ApiGame = {} as ApiGame;
     });
   }
 
-  selectGameFromSearch(){
-    
+  selectGameFromSearch(choice:GameElement){
+    this.selectedGame= choice;
   }
 
   // addGameToShelf(apiGameId:string, userId:number){
     
-  //   this.gameShelfService.addGameToGameShelf()
+  //   this.gameShelfService.addGameToGameShelf(apiGameId)
   // }
 
 
