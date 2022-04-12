@@ -56,10 +56,10 @@ namespace BoardGameNight.Controllers
         }
 
         [HttpDelete("Delete/{eventId}")]
-        public Event deleteEvent(int Id)
+        public Event deleteEvent(int eventId)
         {
-            Event result = null;
-            result = context.Events.FirstOrDefault(e => e.Id == Id);
+            //Event result = null;
+            Event result = context.Events.FirstOrDefault(e => e.Id == eventId);
             context.Events.Remove(result);
             context.SaveChanges();
             return result;

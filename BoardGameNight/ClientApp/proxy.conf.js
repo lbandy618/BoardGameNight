@@ -10,7 +10,8 @@ const PROXY_CONFIG = [
       "/api/User",
       "/api/Session",
       "/api/Preferences",
-      "/api/GameShelf"
+      "/api/GameShelf",
+      "/api/Event"
 
    ],
     target: target,
