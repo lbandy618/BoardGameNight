@@ -48,6 +48,7 @@ namespace BoardGameNight.Controllers
         [HttpPatch("profile")]
         public void updateProfile(User updatedUser)
         {
+            User updatedUser = context.Users.First(u => u.LoginId == updatedUser.LoginId);
             context.Users.Update(updatedUser);
             context.SaveChanges();
         }
