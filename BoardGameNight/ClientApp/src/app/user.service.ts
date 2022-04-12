@@ -26,12 +26,20 @@ createNew(loginId:string){
   return this.http.post(`${ this.baseUrl }api/User/authenticationID?hashID=${ loginId }`,{});
 }
 
-updateSummary(summary:string, userID:number){
-  return this.http.post(`${ this.baseUrl }api/User/summary?summary=${ summary }&userID=${userID}`, {});
+updateProfile(updatedUser:User){
+  return this.http.patch('${ this.baseUrl }api/User/profile', updatedUser)
 }
 
-updateAge(age:Number, userID: Number ){
-  return this.http.post(`${ this.baseUrl }api/User/age?age=${ age }&userID=${ userID }`, {});
-}
+// updateSummary(summary:string, LoginId: string){
+//   return this.http.patch(`${ this.baseUrl }api/User/summary?summary=${ summary }&hashID=${ LoginId }`, {});
+// }
+
+// updateAge(age:Number, LoginId: string ){
+//   return this.http.patch(`${ this.baseUrl }api/User/age?age=${ age }&hashID=${ LoginId }`, {});
+// }
+
+// updateUserName(userName: string, LoginId: string ){
+//   return this.http.patch(`${ this.baseUrl }api/User/userName?userName=${ userName }&hashID=${ LoginId }`, {});
+// }
 
 }
