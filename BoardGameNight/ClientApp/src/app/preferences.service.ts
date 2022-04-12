@@ -6,17 +6,21 @@ import { Preferences } from './preferences';
   providedIn: 'root'
 })
 export class PreferencesService {
-  endpoint:string = "api/Preference";
+  endpoint:string = "api/Preferences";
 
   constructor(private http:HttpClient, @Inject('BASE_URL') private baseUrl:string) { }
 
 
 getAllPreferences(){
-return this.http.get(this.baseUrl + "api/Preferences")
+return this.http.get(this.baseUrl + "api/Preferences/");
+}
+
+createPreference(newPreference: Preferences){
+  return this.http.post(this.baseUrl+"api/Preferences/", newPreference);
 }
 
 getPreferencesByUserId(userId:number){
-  return this.http.get(`${ this.baseUrl } + "api/Preference/ByUserId/${ userId }`);
+  return this.http.get(`${ this.baseUrl } + "api/Preferences/ByUserId/${ userId }`);
 }
 
 editCategory(updatedPreference: Preferences, category: string ){
@@ -25,11 +29,11 @@ editCategory(updatedPreference: Preferences, category: string ){
 }
 
 addMaxTime(updatedPreference: Preferences, maxTime:number){
-  return this.http.patch(`${ this.baseUrl } +"api/Preference/byMaxTime?maxTime=${ maxTime } `, updatedPreference);
+  return this.http.patch(`${ this.baseUrl } +"api/Preferences/byMaxTime?maxTime=${ maxTime } `, updatedPreference);
 }
 
 addYearPublished(updatedPreference: Preferences, yearPublished:number){
-  return this.http.patch(`${ this.baseUrl } +"api/Preference/byMaxTime?yearPublished=${ yearPublished } `, updatedPreference);
+  return this.http.patch(`${ this.baseUrl } +"api/Preferences/byMaxTime?yearPublished=${ yearPublished } `, updatedPreference);
 }
 
 
