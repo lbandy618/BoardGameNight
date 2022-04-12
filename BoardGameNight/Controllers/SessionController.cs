@@ -22,7 +22,7 @@ namespace BoardGameNight.Controllers
         }
 
         [HttpPost("createSession")]
-        public Session createSession(Session newSession)
+        public Session createSession([FromBody]Session newSession)
         {
             context.Sessions.Add(newSession);
             context.SaveChanges();
@@ -30,18 +30,19 @@ namespace BoardGameNight.Controllers
         }
 
         [HttpPatch("editWinner")]
-        public void editWinner(Session updatedSession, int userId)
+        public Session editWinner([FromBody]Session updatedSession, int userId)
         {
             User user = new User();
             user = context.Users.Find(userId);
             updatedSession.Winner = user.UserName;
             context.Sessions.Update(updatedSession);
             context.SaveChanges();
+            return updatedSession;
         }
 
 
         [HttpPatch("editTimePlayed")]
-        public void editTimePlayed(Session updatedSession, double timePlayed)
+        public void editTimePlayed([FromBody]Session updatedSession, double timePlayed)
         {
             updatedSession.TimePlayed = timePlayed;
             context.Sessions.Update(updatedSession);
@@ -49,7 +50,7 @@ namespace BoardGameNight.Controllers
         }
 
         [HttpPatch("editEnjoyment")]
-        public void editEnjoyment(Session updatedSession, int enjoyment)
+        public void editEnjoyment([FromBody]Session updatedSession, int enjoyment)
         {
             updatedSession.Enjoyment = enjoyment;
             context.Sessions.Update(updatedSession);

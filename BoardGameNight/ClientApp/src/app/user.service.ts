@@ -19,7 +19,7 @@ createuser(newUser:User){
 }
 
 getUsers():Observable<User[]>{
-  return this.http.get<User[]>(`${ this.baseUrl }api/User/getUsers`);
+  return this.http.get<User[]>(`${ this.baseUrl }api/User`);
 }
 
 createNew(loginId:string){
