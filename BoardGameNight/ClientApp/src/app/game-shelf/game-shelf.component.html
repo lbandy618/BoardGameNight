@@ -1,0 +1,7 @@
+<form #searchForm="ngForm" (ngSubmit)="getGameByName(searchForm)">
+    <input type="text" name="name" ngModel>
+    <button>Search</button>
+</form>
+<div *ngFor="let g of gameSearch.games">
+    {{g.name}}
+</div>

@@ -12,6 +12,7 @@ import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { SocialLoginModule, SocialAuthServiceConfig, GoogleLoginProvider } from 'angularx-social-login';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { SessionComponent } from './session/session.component';
+import { GameShelfComponent } from './game-shelf/game-shelf.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { SessionComponent } from './session/session.component';
     CounterComponent,
     FetchDataComponent,
     UserProfileComponent,
-    SessionComponent
+    SessionComponent,
+    GameShelfComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -30,6 +32,7 @@ import { SessionComponent } from './session/session.component';
     SocialLoginModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
+      { path: 'gameshelf', component: GameShelfComponent },
       { path: 'counter', component: CounterComponent },
       { path: 'fetch-data', component: FetchDataComponent },
     ])

@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Secret } from './secret';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,6 @@ export class BoardgameapiService {
   
 
   constructor(private http: HttpClient) { }
-
   // https://api.boardgameatlas.com/api/search?ids=OIXt3DmJU0&client_id=
   getBoardGameByID(boardgameid:string[]):any{
     let combined:string = "";
