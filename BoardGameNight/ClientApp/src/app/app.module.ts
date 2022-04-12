@@ -11,6 +11,7 @@ import { CounterComponent } from './counter/counter.component';
 import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { SocialLoginModule, SocialAuthServiceConfig, GoogleLoginProvider } from 'angularx-social-login';
 import { UserProfileComponent } from './user-profile/user-profile.component';
+import { SessionComponent } from './session/session.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
     HomeComponent,
     CounterComponent,
     FetchDataComponent,
-    UserProfileComponent
+    UserProfileComponent,
+    SessionComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
