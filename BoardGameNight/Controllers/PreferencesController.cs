@@ -17,19 +17,33 @@ namespace BoardGameNight.Controllers
         }
 
         [HttpGet("ByUserId/{userId}")]
+        //api/Preferences/ByUserId/{userId}
         public Preferences GetPreferencesByUserId(int userId)
         {
             return context.Preferences.Where(p => p.UserId == userId).FirstOrDefault();
         }
 
+        [HttpPost]
+        //make sure to add at least category and userId
+        //api/Preferences/
+        public Preferences createPreferences([FromBody]Preferences newPreferences)
+        {
+            context.Preferences.Add(newPreferences);
+            context.SaveChanges();
+            return newPreferences;
+        }
+
         
         [HttpPatch("editCategory")]
-        public void editCategory(Preferences updatedPreference, string category)
+        //api/Preferences/editCategory?category=meow
+        public void editCategory([FromBody] Preferences updatedPreference, string category)
         {
             updatedPreference.Categories = category;
             context.Preferences.Update(updatedPreference);
             context.SaveChanges();
         }
+
+        //stretch goals below
 
         [HttpPatch("editMechanic")]
         public void editMechanic()
@@ -38,7 +52,7 @@ namespace BoardGameNight.Controllers
         }
 
         [HttpPatch("byMaxTime")]
-        public void AddMaxTime(double maxTime, Preferences updatedPreference)
+        public void AddMaxTime(double maxTime, [FromBody] Preferences updatedPreference)
         {
             updatedPreference.MaxTime = maxTime;
             context.Preferences.Update(updatedPreference);
@@ -46,7 +60,7 @@ namespace BoardGameNight.Controllers
         }
 
         [HttpPatch("byYearPublished")]
-        public void AddYearPublished(int yearPulished, Preferences updatedPreference)
+        public void AddYearPublished(int yearPulished, [FromBody] Preferences updatedPreference)
         {
             updatedPreference.YearPublished = yearPulished;
             context.Preferences.Update(updatedPreference);

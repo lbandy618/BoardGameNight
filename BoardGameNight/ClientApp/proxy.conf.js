@@ -9,7 +9,8 @@ const PROXY_CONFIG = [
       "/weatherforecast",
       "/api/User",
       "/api/Session",
-      "/api/Preferences"
+      "/api/Preferences",
+      "/api/GameShelf"
 
    ],
     target: target,

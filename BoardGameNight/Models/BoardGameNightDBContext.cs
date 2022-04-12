@@ -79,7 +79,7 @@ namespace BoardGameNight.Models
 
                 entity.Property(e => e.OwnedId).HasColumnName("OwnedID");
 
-                entity.Property(e => e.Publisher).HasMaxLength(1);
+                entity.Property(e => e.Publisher).HasMaxLength(255);
 
                 entity.HasOne(d => d.Owned)
                     .WithMany(p => p.Preferences)

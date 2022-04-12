@@ -47,22 +47,18 @@ namespace BoardGameNight.Controllers
         [HttpPatch("summary")]
         public void updateSummary(string summary, int userID)
         {
-            context.Users.Update(new User()
-            {
-                Id = userID,
-                Summary = summary
-          });
+            User updatedUser = context.Users.Find(userID);
+            updatedUser.Summary = summary;
+            context.Users.Update(updatedUser);
             context.SaveChanges();
         }
 
         [HttpPatch("age")]
         public void updateAge(int age, int userID)
         {
-            context.Users.Update(new User()
-            {
-                Id = userID,
-                Age = age
-            });
+            User updatedUser = context.Users.Find(userID);
+            updatedUser.Age = age;
+            context.Users.Update(updatedUser);
             context.SaveChanges();
         }
     }

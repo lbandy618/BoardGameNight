@@ -12,7 +12,7 @@ export class PreferencesService {
 
 
 getAllPreferences(){
-return this.http.get(this.baseUrl + "api/Preference")
+return this.http.get(this.baseUrl + "api/Preferences")
 }
 
 getPreferencesByUserId(userId:number){

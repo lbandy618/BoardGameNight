@@ -11,19 +11,29 @@ namespace BoardGameNight.Controllers
         BoardGameNightDBContext context = new BoardGameNightDBContext();
 
         [HttpGet]
+        // /api/GameShelf
         public List<GameShelf> GetGameShelf()
         {
             List<GameShelf> shelfList = context.OwnedGames.ToList();
             return shelfList;
         }
 
-        [HttpGet("ById/{id}")]
+        [HttpGet("ById/{id}")] //searches by ID of the OwnedGames tables NOT the apiGameID
+        // /api/GameShelf/ById/2
         public GameShelf GetOwnedGameById(int id)
         {
             return context.OwnedGames.Where(g => g.Id == id).FirstOrDefault();
         }
 
+        [HttpGet("SearchGameShelfByUserId")]
+        // api/GameShelf/SearchGameShelfByUserId?userId=1
+        public List<GameShelf> SearchGameShelfByUserId(int userId)
+        {
+            return context.OwnedGames.Where(g => g.UserId == userId).ToList();
+        }
+
         [HttpPost("addGametoGameShelf")]
+        // /api/GameShelf/addGametoGameShelf?apiGameId=OIXt3DmJU0&userId=1
         public GameShelf AddGameToGameShelf(string apiGameId, int userId, int rating)
         {
             GameShelf result = new GameShelf();
@@ -36,10 +46,11 @@ namespace BoardGameNight.Controllers
         }
 
         [HttpDelete("ById/{id}")]
-        public void DeleteOwnedGameById(int gameId)
+        // /api/GameShelf/ById/1
+        public void DeleteOwnedGameById(int id)
         {
             GameShelf result = null;
-            result = context.OwnedGames.FirstOrDefault(g => g.Id == gameId);
+            result = context.OwnedGames.FirstOrDefault(g => g.Id == id);
             if(result != null)
             {
                 context.OwnedGames.Remove(result);
@@ -48,18 +59,12 @@ namespace BoardGameNight.Controllers
         }
 
         [HttpPatch("editRating")]
-        public void EditRating(GameShelf updatedGameShelf, int rating)
+        // /api/GameShelf/editRating?rating=4
+        public void EditRating([FromBody]GameShelf updatedGameShelf, int rating)
         {
             updatedGameShelf.Rating = rating;
             context.OwnedGames.Update(updatedGameShelf);
             context.SaveChanges();
         }
-
-        [HttpGet("SearchGameShelfById")]
-        public GameShelf SearchGameShelfById(int gameId)
-        {
-            return context.OwnedGames.Find(gameId);
-        }
-
     }
 }

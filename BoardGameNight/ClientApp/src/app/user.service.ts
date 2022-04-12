@@ -27,11 +27,11 @@ createNew(loginId:string){
 }
 
 updateSummary(summary:string, userID:number){
-  return this.http.post(`${ this.baseUrl }api/User/updateSumary?summary=${ summary },userID=${userID}`, {});
+  return this.http.post(`${ this.baseUrl }api/User/summary?summary=${ summary }&userID=${userID}`, {});
 }
 
 updateAge(age:Number, userID: Number ){
-  return this.http.post(`${ this.baseUrl }api/User/updateSumary?age=${ age },userID=${ userID }`, {});
+  return this.http.post(`${ this.baseUrl }api/User/age?age=${ age }&userID=${ userID }`, {});
 }
 
 }
