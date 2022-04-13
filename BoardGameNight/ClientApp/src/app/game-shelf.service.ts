@@ -19,8 +19,8 @@ getOwnedGameById(id:number){
   return this.http.get(`${ this.baseUrl }api/GameShelf/ById/${ id }`);
 }
 
-addGameToGameShelf(apiGameId:string, userId:number){
- return this.http.post(`${ this.baseUrl }api/GameShelf/addGametoGameShelf?apiGameId=${ apiGameId}&userId=${ userId}`, {});
+addGameToGameShelf(apiGameId:string, LoginId:string){
+ return this.http.post(`${ this.baseUrl }api/GameShelf/addGametoGameShelf?apiGameId=${ apiGameId}&userId=${ LoginId }`, {});
 }
 
 deleteOwnedGameById(gameId:number){

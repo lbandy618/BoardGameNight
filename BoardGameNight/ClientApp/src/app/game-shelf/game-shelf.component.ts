@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { SocialAuthService, SocialUser } from 'angularx-social-login';
 import { ApiGame, GameElement } from '../ApiGame';
 import { BoardgameapiService } from '../boardgameapi.service';
 import { GameShelfService } from '../game-shelf.service';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-game-shelf',
@@ -12,11 +14,16 @@ import { GameShelfService } from '../game-shelf.service';
 export class GameShelfComponent implements OnInit {
 gameSearch:ApiGame = {} as ApiGame;
 selectedGame:GameElement = {} as GameElement;
+user: SocialUser = {} as SocialUser;
+loggedIn: boolean = false;
 
-  constructor(private apiService:BoardgameapiService, private gameShelfService:GameShelfService) { }
+  constructor(private apiService:BoardgameapiService, private gameShelfService:GameShelfService, private userService:UserService, private authService: SocialAuthService) { }
 
   ngOnInit(): void {
-
+    this.authService.authState.subscribe((user) => {
+      this.user = user;
+      this.loggedIn = (user != null);
+    });
   }
 
   getGameByName(form:NgForm){
@@ -29,6 +36,14 @@ selectedGame:GameElement = {} as GameElement;
 
   selectGameFromSearch(choice:GameElement){
     this.selectedGame= choice;
+    console.log(choice);
+  }
+
+  addGameToGameShelf(apiGameId:string){
+    apiGameId = this.selectedGame.id;
+    this.gameShelfService.addGameToGameShelf(apiGameId, this.user.id).subscribe((response) =>{
+      console.log("game shelf has been updated")
+    });
   }
 
   // addGameToShelf(apiGameId:string, userId:number){

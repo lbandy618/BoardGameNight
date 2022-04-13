@@ -33,7 +33,7 @@ export class UserProfileComponent implements OnInit {
       age: newAge,
       summary: newSummary,
       id: 0,
-      loginId: '',
+      loginId: this.user.id,
       ownedGames: [],
       preferences: [],
       sessionAttendee: [],
@@ -43,6 +43,8 @@ export class UserProfileComponent implements OnInit {
       console.log("profile has been updated")
     })
   }
+
+
 
   // updateUserName(form:NgForm):any {
   //   let newUserName = form.form.value.userName;

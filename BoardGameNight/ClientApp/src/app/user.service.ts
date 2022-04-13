@@ -27,7 +27,7 @@ createNew(loginId:string){
 }
 
 updateProfile(updatedUser:User){
-  return this.http.patch('${ this.baseUrl }api/User/profile', updatedUser)
+  return this.http.patch(`${ this.baseUrl }api/User/profile`, updatedUser);
 }
 
 // updateSummary(summary:string, LoginId: string){

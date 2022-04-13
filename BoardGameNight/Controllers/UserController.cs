@@ -46,10 +46,13 @@ namespace BoardGameNight.Controllers
         }
 
         [HttpPatch("profile")]
-        public void updateProfile(User updatedUser)
+        public void updateProfile([FromBody]User updatedUser)
         {
-            User updatedUser = context.Users.First(u => u.LoginId == updatedUser.LoginId);
-            context.Users.Update(updatedUser);
+            User updatedUser2 = context.Users.First(u => u.LoginId == updatedUser.LoginId);
+            updatedUser2.UserName = updatedUser.UserName;
+            updatedUser2.Summary = updatedUser.Summary;
+            updatedUser2.Age = updatedUser.Age;
+            context.Users.Update(updatedUser2);
             context.SaveChanges();
         }
 

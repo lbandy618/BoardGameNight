@@ -34,12 +34,11 @@ namespace BoardGameNight.Controllers
 
         [HttpPost("addGametoGameShelf")]
         // /api/GameShelf/addGametoGameShelf?apiGameId=OIXt3DmJU0&userId=1
-        public GameShelf AddGameToGameShelf(string apiGameId, int userId, int rating)
+        public GameShelf AddGameToGameShelf(string apiGameId, string userId)
         {
             GameShelf result = new GameShelf();
             result.ApigameId = apiGameId;
-            result.UserId = userId;
-            result.Rating = rating;
+            result.UserId = context.Users.First(u => u.LoginId == userId).Id;
             context.OwnedGames.Add(result);
             context.SaveChanges();
             return result;

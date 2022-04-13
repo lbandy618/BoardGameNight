@@ -15,3 +15,6 @@
     <p>{{ selectedGame.description }}</p>
     
 </div>
+<div *ngIf="loggedIn">
+    <button (click)="addGameToGameShelf(selectedGame.id)" >Add Game to Shelf</button>
+</div>
