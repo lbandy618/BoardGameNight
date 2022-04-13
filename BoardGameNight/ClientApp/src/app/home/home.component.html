@@ -1,7 +1,10 @@
 <button (click)="togglePeople()">Display People</button>
+
 <div *ngIf="displayPeople==true">
     <div *ngFor="let u of users">
         <input type="checkbox" (click)="selectUser(u)">
         {{ u.userName }}
     </div>
 </div>
+<button (click)="getSelectedUserOwnedGames()"> Collected Game Shelf</button>
+<button (click)="selectedGamesCategories()"> Categories</button>

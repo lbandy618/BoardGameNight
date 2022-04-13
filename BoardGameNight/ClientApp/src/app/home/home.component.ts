@@ -1,5 +1,9 @@
 import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { concat } from 'rxjs';
+import { BoardgameapiService } from '../boardgameapi.service';
+import { GameShelf } from '../game-shelf';
+import { GameShelfService } from '../game-shelf.service';
 import { User } from '../user';
 import { UserService } from '../user.service';
 
@@ -11,9 +15,10 @@ export class HomeComponent {
 
   users:User[] = [];
   selectedUsers:User[]=[];
+  selectedUsersGameShelf: GameShelf[] =[]
   displayPeople:boolean = false;
 
-  constructor(private userService: UserService, ) { }
+  constructor(private userService: UserService, private gameShelfService: GameShelfService, private boardGameApiService: BoardgameapiService) { }
 
 
   ngOnInit(): void {
@@ -43,8 +48,28 @@ export class HomeComponent {
     this.displayPeople = !this.displayPeople;
   }
 
+getSelectedUserOwnedGames(){
+
+this.selectedUsers.forEach(u=>{
+this.gameShelfService.searchGameShelfByUserId(u.id).subscribe((response:GameShelf[] )=>{
+  console.log(response);
+  this.selectedUsersGameShelf = this.selectedUsersGameShelf.concat(response)
+
+})
+})
+}
+
+selectedGamesCategories(){
+this.selectedUsersGameShelf.forEach(g=>{
+this.boardGameApiService.getBoardGameCategoriesByID(g.apiGameId).subscribe((response:GameShelf[] )=>{
+  console.log(response);
+
+})
+})
+}
 
 
+//getBoardGameCategoriesByID
   // getNumberOfPlayers(form:NgForm){
 
   // }

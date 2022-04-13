@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { GameShelf } from './game-shelf';
 
 @Injectable({
@@ -36,8 +37,8 @@ editRating(updatedGameShelf:GameShelf, rating:number){
 //   return this.http.get(`${ this.baseUrl }api/GameShelf/SearchGameShelfById?gameId=${ gameId }`);
 // }
 
-searchGameShelfByUserId(userId:number){
-  return this.http.get(`${ this.baseUrl }api/GameShelf/SearchGameShelfByUserId?userId=${ userId }`);
+searchGameShelfByUserId(userId:number):Observable<GameShelf[]>{
+  return this.http.get<GameShelf[]>(`${ this.baseUrl }api/GameShelf/SearchGameShelfByUserId?userId=${ userId }`);
 }
 }
 
