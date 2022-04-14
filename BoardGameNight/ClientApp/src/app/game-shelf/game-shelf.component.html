@@ -2,10 +2,11 @@
     <input type="text" name="name" ngModel>
     <button>Search</button>
 </form>
-
+ 
 <div *ngFor="let g of gameSearch.games">
     <button (click)="selectGameFromSearch(g)"> {{g.name}} </button>
 </div>
+
 <div>
     <h1>
        {{ selectedGame.name }} 
@@ -15,6 +16,7 @@
     <p>{{ selectedGame.description }}</p>
     
 </div>
+
 <div *ngIf="loggedIn">
     <button (click)="addGameToGameShelf(selectedGame.id)" >Add Game to Shelf</button>
 </div>

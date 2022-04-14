@@ -1,6 +1,6 @@
 export interface GameShelf {
     id: number;
-    apiGameId: string;
+    apigameId: string;
     rating: number;
     userId: number;
 
