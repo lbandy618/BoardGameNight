@@ -8,3 +8,15 @@
 </div>
 <button (click)="getSelectedUserOwnedGames()"> Collected Game Shelf</button>
 <button (click)="selectedGamesCategories()"> Categories</button>
+
+<button (click)="toggleCategory()">Choose a Category</button>
+
+<div *ngIf="displayCategoryNames == true">
+    <div *ngIf="selectedCategoryNames.length > 0">
+        <div *ngFor="let n of selectedCategoryNames">
+            <input type="radio"  name="category" (click)="selectCategory(n)" />
+            {{ n }}
+        </div>
+    </div>
+
+</div>
