@@ -23,6 +23,7 @@ import { UserService } from '../user.service';
   selectedCategoryNames:string[] =[];
   displayCategoryNames:boolean = false;
   chosenCategory:iCategory = {} as iCategory;
+  apiGameList: GameElement[] = [];
 
   constructor(private userService: UserService, private gameShelfService: GameShelfService, private boardGameApiService: BoardgameapiService) { }
 
@@ -103,6 +104,7 @@ import { UserService } from '../user.service';
         this.boardGameApiService.getBoardGameByID(results).subscribe((response:ApiGame)=>{
         console.log(response);
         console.log("showing full api response");
+        this.apiGameList = response.games;
         let categoryIds:string[] = []
         response.games.forEach(g =>{  //nested for each, grabbing the category id out of category array inside each game list
             console.log(response.games);
@@ -125,8 +127,16 @@ import { UserService } from '../user.service';
     console.log(this.selectedCategoryNames);
   }
 
+  callApiGamefromShelf(){
 
+    let sharedGames:GameElement[] = this.apiGameList.filter(c => c.categories.map(c=>c.id).includes(this.chosenCategory.id))
+    console.log(Math.floor((Math.random()*sharedGames.length)));
+    console.log(sharedGames);
+    
+  }
   
+  // getBoardGameCategoriesByID
+
     // getNumberOfPlayers(form:NgForm){
 
     // }
