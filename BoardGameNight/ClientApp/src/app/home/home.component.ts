@@ -24,6 +24,7 @@ import { UserService } from '../user.service';
   displayCategoryNames:boolean = false;
   chosenCategory:iCategory = {} as iCategory;
   apiGameList: GameElement[] = [];
+  randomGame: GameElement = {} as GameElement;
 
   constructor(private userService: UserService, private gameShelfService: GameShelfService, private boardGameApiService: BoardgameapiService) { }
 
@@ -132,6 +133,7 @@ import { UserService } from '../user.service';
     let sharedGames:GameElement[] = this.apiGameList.filter(c => c.categories.map(c=>c.id).includes(this.chosenCategory.id))
     console.log(Math.floor((Math.random()*sharedGames.length)));
     console.log(sharedGames);
+    this.randomGame = sharedGames[Math.floor((Math.random()*sharedGames.length))]
     
   }
   
