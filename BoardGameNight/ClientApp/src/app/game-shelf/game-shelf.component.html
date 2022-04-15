@@ -20,3 +20,8 @@
 <div *ngIf="loggedIn">
     <button (click)="addGameToGameShelf(selectedGame.id)" >Add Game to Shelf</button>
 </div>
+
+<div *ngFor="let g of myGameShelf">
+    <!-- {{g.name}} -->
+    <!-- {{getGameByAPIId(g.apigameId).name}} -->
+</div>

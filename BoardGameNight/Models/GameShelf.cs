@@ -16,8 +16,13 @@ namespace BoardGameNight.Models
         public int? Rating { get; set; }
         public int? UserId { get; set; }
 
+       
         public virtual User? User { get; set; }
+
+        [System.Text.Json.Serialization.JsonIgnore]
         public virtual ICollection<Preferences> Preferences { get; set; }
+
+        [System.Text.Json.Serialization.JsonIgnore]
         public virtual ICollection<Session> Sessions { get; set; }
     }
 }

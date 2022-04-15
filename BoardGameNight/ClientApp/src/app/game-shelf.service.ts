@@ -37,8 +37,13 @@ editRating(updatedGameShelf:GameShelf, rating:number){
 //   return this.http.get(`${ this.baseUrl }api/GameShelf/SearchGameShelfById?gameId=${ gameId }`);
 // }
 
+searchGameShelfByLoginId(loginId:string):Observable<GameShelf[]>{
+  return this.http.get<GameShelf[]>(`${ this.baseUrl }api/GameShelf/SearchGameShelfByLoginId?loginId=${ loginId }`);
+}
+
 searchGameShelfByUserId(userId:number):Observable<GameShelf[]>{
   return this.http.get<GameShelf[]>(`${ this.baseUrl }api/GameShelf/SearchGameShelfByUserId?userId=${ userId }`);
 }
+
 }
 

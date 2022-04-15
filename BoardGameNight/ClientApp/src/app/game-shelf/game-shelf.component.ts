@@ -3,6 +3,7 @@ import { NgForm } from '@angular/forms';
 import { SocialAuthService, SocialUser } from 'angularx-social-login';
 import { ApiGame, GameElement } from '../ApiGame';
 import { BoardgameapiService } from '../boardgameapi.service';
+import { GameShelf } from '../game-shelf';
 import { GameShelfService } from '../game-shelf.service';
 import { UserService } from '../user.service';
 
@@ -16,13 +17,19 @@ gameSearch:ApiGame = {} as ApiGame;
 selectedGame:GameElement = {} as GameElement;
 user: SocialUser = {} as SocialUser;
 loggedIn: boolean = false;
+gameshelf : GameShelf [] =[];
+myGameShelf : GameElement [] = [];
 
   constructor(private apiService:BoardgameapiService, private gameShelfService:GameShelfService, private userService:UserService, private authService: SocialAuthService) { }
 
   ngOnInit(): void {
+    
     this.authService.authState.subscribe((user) => {
       this.user = user;
       this.loggedIn = (user != null);
+      if (this.loggedIn){
+        this.getGameShelfByLoginId(this.user.id);
+      }
     });
   }
 
@@ -38,6 +45,24 @@ loggedIn: boolean = false;
     this.selectedGame= choice;
     console.log(choice);
   }
+
+  getGameByAPIId(apiId: string):GameElement{
+    let result : GameElement = {} as GameElement;
+    this.apiService.getBoardGameByID([apiId]).subscribe((response:ApiGame)=>{
+      result = response.games[0];
+    })
+    return result;
+  }
+
+
+  getGameShelfByLoginId(loginId:string){
+    this.gameShelfService.searchGameShelfByLoginId(loginId).subscribe((response:any)=>{
+      this.gameshelf = response;
+      console.log(this.gameshelf);
+      this.gameshelf.forEach(g=> this.myGameShelf.push(this.getGameByAPIId(g.apigameId)));
+    })
+  }
+
 
   addGameToGameShelf(apiGameId:string){
     apiGameId = this.selectedGame.id;

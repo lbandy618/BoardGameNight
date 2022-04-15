@@ -84,40 +84,42 @@ import { UserService } from '../user.service';
   }
 
   selectedGamesCategories(){
-    console.log(this.selectedUsersGameShelf)
-    let selectedGameIds:string[] = []
-    this.selectedUsersGameShelf.forEach(g=>{
-      selectedGameIds.push(g.apigameId)
-    })
-      console.log(selectedGameIds)
-      let sortedArray:string[] = selectedGameIds.sort();
-      let results:string[] = [];
-      for(let i = 0; i < sortedArray.length - 1; i++){
-        if(sortedArray[i+1] == sortedArray[i]){
-          results.push(sortedArray[i]);
-        }
-      }
-        console.log(results);
-        console.log("this is showing only dups");
-        if(results.length == 0){ //no dubs found
-          results = selectedGameIds;
-        }
-        this.boardGameApiService.getBoardGameByID(results).subscribe((response:ApiGame)=>{
-        console.log(response);
-        console.log("showing full api response");
-        this.apiGameList = response.games;
-        let categoryIds:string[] = []
-        response.games.forEach(g =>{  //nested for each, grabbing the category id out of category array inside each game list
-            console.log(response.games);
-            console.log("grabbed cat id out of cat array")
-            g.categories.forEach(c => {
-            categoryIds.push(c.id);
-        })
-        console.log(categoryIds);
-        this.selectedCategoryIds = categoryIds;
-        this.getBoardGameCategoriesNames();
+    if (this.selectedUsersGameShelf.length > 0){
+      console.log(this.selectedUsersGameShelf)
+      let selectedGameIds:string[] = []
+      this.selectedUsersGameShelf.forEach(g=>{
+        selectedGameIds.push(g.apigameId)
       })
-    })
+        console.log(selectedGameIds)
+        let sortedArray:string[] = selectedGameIds.sort();
+        let results:string[] = [];
+        for(let i = 0; i < sortedArray.length - 1; i++){
+          if(sortedArray[i+1] == sortedArray[i]){
+            results.push(sortedArray[i]);
+          }
+        }
+          console.log(results);
+          console.log("this is showing only dups");
+          if(results.length == 0){ //no dubs found
+            results = selectedGameIds;
+          }
+          this.boardGameApiService.getBoardGameByID(results).subscribe((response:ApiGame)=>{
+          console.log(response);
+          console.log("showing full api response");
+          this.apiGameList = response.games;
+          let categoryIds:string[] = []
+          response.games.forEach(g =>{  //nested for each, grabbing the category id out of category array inside each game list
+              console.log(response.games);
+              console.log("grabbed cat id out of cat array")
+              g.categories.forEach(c => {
+              categoryIds.push(c.id);
+          })
+          console.log(categoryIds);
+          this.selectedCategoryIds = categoryIds;
+          this.getBoardGameCategoriesNames();
+        })
+      })
+    }
   }
 
   getBoardGameCategoriesNames(){
@@ -129,12 +131,12 @@ import { UserService } from '../user.service';
   }
 
   callApiGamefromShelf(){
-
-    let sharedGames:GameElement[] = this.apiGameList.filter(c => c.categories.map(c=>c.id).includes(this.chosenCategory.id))
-    console.log(Math.floor((Math.random()*sharedGames.length)));
-    console.log(sharedGames);
-    this.randomGame = sharedGames[Math.floor((Math.random()*sharedGames.length))]
-    
+    if (this.apiGameList.length > 0){
+      let sharedGames:GameElement[] = this.apiGameList.filter(c => c.categories.map(c=>c.id).includes(this.chosenCategory.id))
+      console.log(Math.floor((Math.random()*sharedGames.length)));
+      console.log(sharedGames);
+      this.randomGame = sharedGames[Math.floor((Math.random()*sharedGames.length))]
+    }
   }
   
   // getBoardGameCategoriesByID

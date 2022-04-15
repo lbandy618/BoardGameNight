@@ -19,6 +19,7 @@ namespace BoardGameNight.Models
         public string? Summary { get; set; }
         public string? UserName { get; set; }
 
+        [System.Text.Json.Serialization.JsonIgnore]
         public virtual ICollection<GameShelf> OwnedGames { get; set; }
         public virtual ICollection<Preferences> Preferences { get; set; }
         public virtual ICollection<SessionAttendee> SessionAttendees { get; set; }

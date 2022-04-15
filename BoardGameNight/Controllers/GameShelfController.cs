@@ -25,6 +25,14 @@ namespace BoardGameNight.Controllers
             return context.OwnedGames.Where(g => g.Id == id).FirstOrDefault();
         }
 
+        [HttpGet("SearchGameShelfByLoginId")]
+        // api/GameShelf/SearchGameShelfByLoginId?userId=googlelogin
+        public List<GameShelf> SearchGameShelfByLoginId(string loginId)
+        {
+            int userId = context.Users.First(u => u.LoginId == loginId).Id;
+            return context.OwnedGames.Where(g => g.UserId == userId).ToList();
+        }
+
         [HttpGet("SearchGameShelfByUserId")]
         // api/GameShelf/SearchGameShelfByUserId?userId=1
         public List<GameShelf> SearchGameShelfByUserId(int userId)
