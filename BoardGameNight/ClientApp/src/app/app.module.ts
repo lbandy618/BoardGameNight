@@ -7,23 +7,21 @@ import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
-import { CounterComponent } from './counter/counter.component';
-import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { SocialLoginModule, SocialAuthServiceConfig, GoogleLoginProvider } from 'angularx-social-login';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { SessionComponent } from './session/session.component';
 import { GameShelfComponent } from './game-shelf/game-shelf.component';
+import { GameNightEventComponent } from './game-night-event/game-night-event.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavMenuComponent,
     HomeComponent,
-    CounterComponent,
-    FetchDataComponent,
     UserProfileComponent,
     SessionComponent,
-    GameShelfComponent
+    GameShelfComponent,
+    GameNightEventComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -33,8 +31,6 @@ import { GameShelfComponent } from './game-shelf/game-shelf.component';
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'gameshelf', component: GameShelfComponent },
-      { path: 'counter', component: CounterComponent },
-      { path: 'fetch-data', component: FetchDataComponent },
       { path: 'user-profile', component: UserProfileComponent }
     ])
   ],

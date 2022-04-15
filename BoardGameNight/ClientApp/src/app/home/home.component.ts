@@ -85,13 +85,12 @@ import { UserService } from '../user.service';
 
   selectedGamesCategories(){
     if (this.selectedUsersGameShelf.length > 0){
-      console.log(this.selectedUsersGameShelf)
       let selectedGameIds:string[] = []
       this.selectedUsersGameShelf.forEach(g=>{
         selectedGameIds.push(g.apigameId)
       })
         console.log(selectedGameIds)
-        let sortedArray:string[] = selectedGameIds.sort();
+       let sortedArray:string[] = selectedGameIds.sort();
         let results:string[] = [];
         for(let i = 0; i < sortedArray.length - 1; i++){
           if(sortedArray[i+1] == sortedArray[i]){

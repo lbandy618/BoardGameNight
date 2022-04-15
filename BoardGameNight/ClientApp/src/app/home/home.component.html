@@ -26,3 +26,11 @@
    <img src="{{ randomGame.thumb_url }}" />
    <p> {{randomGame.description}} </p>
 </div>
+
+<div>
+    <form class="form" #addForm="ngForm" (ngSubmit)="createEvent(addForm)">
+        Date:<input type="date" name="date" ngModel />
+        <br />
+        <button>Create Event</button>
+      </form>
+</div>

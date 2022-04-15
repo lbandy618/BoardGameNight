@@ -45,5 +45,9 @@ searchGameShelfByUserId(userId:number):Observable<GameShelf[]>{
   return this.http.get<GameShelf[]>(`${ this.baseUrl }api/GameShelf/SearchGameShelfByUserId?userId=${ userId }`);
 }
 
+getGamebyGameApiId(apiGameId:string){
+  this.http.get(`${ this.baseUrl }api/GameShelf/ByApiGameId?gameApiId=${ apiGameId }`)
+}
+
 }
 
