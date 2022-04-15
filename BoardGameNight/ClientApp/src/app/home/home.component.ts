@@ -8,6 +8,8 @@ import { GameShelf } from '../game-shelf';
 import { GameShelfService } from '../game-shelf.service';
 import { GameNightEvent } from '../gamenightevent';
 import { GameNightEventService } from '../gamenightevent.service';
+import { Session } from '../session';
+import { SessionService } from '../session.service';
 import { User } from '../user';
 import { UserService } from '../user.service';
 
@@ -28,7 +30,7 @@ import { UserService } from '../user.service';
   apiGameList: GameElement[] = [];
   randomGame: GameElement = {} as GameElement;
 
-  constructor(private gameNightEventService: GameNightEventService, private userService: UserService, private gameShelfService: GameShelfService, private boardGameApiService: BoardgameapiService) { }
+  constructor(private sessionService:SessionService, private gameNightEventService: GameNightEventService, private userService: UserService, private gameShelfService: GameShelfService, private boardGameApiService: BoardgameapiService) { }
 
 
   ngOnInit(): void {
@@ -154,5 +156,18 @@ import { UserService } from '../user.service';
         console.log(response);
       })
     }
+
+    createSession(){
+      let ownedResult: GameShelf = this.selectedUsersGameShelf.filter(s => s.apigameId == this.randomGame.id)[0];  //who owns the game we're choosing
+      let newSession : Session = {} as Session;
+      newSession.ownedId= ownedResult.id;
+      this.sessionService.createSession(newSession).subscribe((response:any)=>{
+        console.log(response);
+        this.sessionService.addAttendees(this.selectedUsers,response.id).subscribe((response1:any)=>{
+          console.log(response1);
+        });
+      });
+    }
+
 
 }

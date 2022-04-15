@@ -57,6 +57,19 @@ namespace BoardGameNight.Controllers
             context.SaveChanges();
         }
 
+        [HttpPost("addAttendees")]
+        public void addAttendees([FromBody]List<User> attendees, int sessionID)
+        {
+            foreach (User user in attendees)
+            {
+                SessionAttendee attendee = new SessionAttendee();
+                attendee.UserId = user.Id;
+                attendee.SessionId = sessionID;
+                context.SessionAttendees.Add(attendee);
+            }
+            context.SaveChanges();
+        }
+
     }
 }
 

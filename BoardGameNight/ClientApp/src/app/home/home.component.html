@@ -25,6 +25,7 @@
    <h2> {{ randomGame.name}}</h2>
    <img src="{{ randomGame.thumb_url }}" />
    <p [innerHTML]="randomGame.description"></p>
+   <button (click)="createSession()">Create Session</button>
 </div>
 
 <div>
