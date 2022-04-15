@@ -6,6 +6,8 @@ import { BoardgameapiService } from '../boardgameapi.service';
 import { Category, iCategory } from '../category';
 import { GameShelf } from '../game-shelf';
 import { GameShelfService } from '../game-shelf.service';
+import { GameNightEvent } from '../gamenightevent';
+import { GameNightEventService } from '../gamenightevent.service';
 import { User } from '../user';
 import { UserService } from '../user.service';
 
@@ -26,7 +28,7 @@ import { UserService } from '../user.service';
   apiGameList: GameElement[] = [];
   randomGame: GameElement = {} as GameElement;
 
-  constructor(private userService: UserService, private gameShelfService: GameShelfService, private boardGameApiService: BoardgameapiService) { }
+  constructor(private gameNightEventService: GameNightEventService, private userService: UserService, private gameShelfService: GameShelfService, private boardGameApiService: BoardgameapiService) { }
 
 
   ngOnInit(): void {
@@ -143,5 +145,14 @@ import { UserService } from '../user.service';
     // getNumberOfPlayers(form:NgForm){
 
     // }
+
+    createEvent(form:NgForm){
+      console.log(form.form.value.date)
+      let newEvent : GameNightEvent = {} as GameNightEvent;
+      newEvent.date = form.form.value.date;
+      this.gameNightEventService.createEvent(newEvent).subscribe((response:any)=>{
+        console.log(response);
+      })
+    }
 
 }

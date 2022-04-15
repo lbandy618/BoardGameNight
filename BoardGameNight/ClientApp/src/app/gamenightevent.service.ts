@@ -10,27 +10,27 @@ export class GameNightEventService {
   constructor(private http:HttpClient, @Inject('BASE_URL') private baseUrl:string) { }
 
   getAllEvents():any{
-    this.http.get(`${this.baseUrl}/api/Event`);
+    return this.http.get(`${this.baseUrl}api/Event`);
   }
 
   getEventByID(id:number):any{
-    this.http.get(`${this.baseUrl}/api/Event/eventByID?eventID=${id}`);
+    return this.http.get(`${this.baseUrl}api/Event/eventByID?eventID=${id}`);
   }
 
   getEventByDate(date:string):any{
-    this.http.get(`${this.baseUrl}/api/Event/eventByDate?date=${date}`);
+    return this.http.get(`${this.baseUrl}api/Event/eventByDate?date=${date}`);
   }
 
   getEventByAttendeeID(loginId:string):any{
-    this.http.get(`${this.baseUrl}/api/Event/eventByAttendeeID?userID=${loginId}`);
+    return this.http.get(`${this.baseUrl}api/Event/eventByAttendeeID?userID=${loginId}`);
   }
 
   createEvent(newEvent:GameNightEvent):any{
-  this.http.post(`${this.baseUrl}/api/Event`, newEvent);
+   return this.http.post(`${this.baseUrl}api/Event`, newEvent);
   }
 
   deleteEventByID(eventId:number):any{
-    this.http.delete(`${this.baseUrl}/api/Event/Delete/${eventId}`)
+    return this.http.delete(`${this.baseUrl}api/Event/Delete/${eventId}`)
   }
 
 }

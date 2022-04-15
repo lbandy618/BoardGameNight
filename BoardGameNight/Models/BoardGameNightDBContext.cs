@@ -17,8 +17,8 @@ namespace BoardGameNight.Models
         }
 
         public virtual DbSet<Event> Events { get; set; } = null!;
-        public virtual DbSet<GameShelf> OwnedGames { get; set; } = null!;
-        public virtual DbSet<Preferences> Preferences { get; set; } = null!;
+        public virtual DbSet<GameShelf> GameShelves { get; set; } = null!;
+        public virtual DbSet<Preference> Preferences { get; set; } = null!;
         public virtual DbSet<Session> Sessions { get; set; } = null!;
         public virtual DbSet<SessionAttendee> SessionAttendees { get; set; } = null!;
         public virtual DbSet<User> Users { get; set; } = null!;
@@ -29,7 +29,7 @@ namespace BoardGameNight.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Server=boardgamenight.database.windows.net;Database=BoardGameNightDB;user id=bgn2022;password=Fernando1;");
+                optionsBuilder.UseSqlServer("Data Source=boardgamenight.database.windows.net;Initial Catalog=BoardGameNightDB; user id=bgn2022; password=Fernando1;");
             }
         }
 
@@ -53,7 +53,7 @@ namespace BoardGameNight.Models
 
             modelBuilder.Entity<GameShelf>(entity =>
             {
-                entity.ToTable("OwnedGame");
+                entity.ToTable("GameShelf");
 
                 entity.Property(e => e.Id).HasColumnName("ID");
 
@@ -64,12 +64,12 @@ namespace BoardGameNight.Models
                 entity.Property(e => e.UserId).HasColumnName("UserID");
 
                 entity.HasOne(d => d.User)
-                    .WithMany(p => p.OwnedGames)
+                    .WithMany(p => p.GameShelves)
                     .HasForeignKey(d => d.UserId)
                     .HasConstraintName("FK__OwnedGame__UserI__6754599E");
             });
 
-            modelBuilder.Entity<Preferences>(entity =>
+            modelBuilder.Entity<Preference>(entity =>
             {
                 entity.Property(e => e.Id).HasColumnName("ID");
 
@@ -98,9 +98,16 @@ namespace BoardGameNight.Models
 
                 entity.Property(e => e.Id).HasColumnName("ID");
 
+                entity.Property(e => e.EventId).HasColumnName("EventID");
+
                 entity.Property(e => e.OwnedId).HasColumnName("OwnedID");
 
                 entity.Property(e => e.Winner).HasMaxLength(50);
+
+                entity.HasOne(d => d.Event)
+                    .WithMany(p => p.Sessions)
+                    .HasForeignKey(d => d.EventId)
+                    .HasConstraintName("FK__Session__EventID__01142BA1");
 
                 entity.HasOne(d => d.Owned)
                     .WithMany(p => p.Sessions)

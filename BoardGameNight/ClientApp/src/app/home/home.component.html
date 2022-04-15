@@ -24,7 +24,7 @@
     <button (click)="callApiGamefromShelf()">Generate Game</button>
    <h2> {{ randomGame.name}}</h2>
    <img src="{{ randomGame.thumb_url }}" />
-   <p> {{randomGame.description}} </p>
+   <p [innerHTML]="randomGame.description"></p>
 </div>
 
 <div>

@@ -7,8 +7,8 @@ namespace BoardGameNight.Models
     {
         public User()
         {
-            OwnedGames = new HashSet<GameShelf>();
-            Preferences = new HashSet<Preferences>();
+            GameShelves = new HashSet<GameShelf>();
+            Preferences = new HashSet<Preference>();
             SessionAttendees = new HashSet<SessionAttendee>();
             UserStats = new HashSet<UserStat>();
         }
@@ -20,9 +20,12 @@ namespace BoardGameNight.Models
         public string? UserName { get; set; }
 
         [System.Text.Json.Serialization.JsonIgnore]
-        public virtual ICollection<GameShelf> OwnedGames { get; set; }
-        public virtual ICollection<Preferences> Preferences { get; set; }
+        public virtual ICollection<GameShelf> GameShelves { get; set; }
+        [System.Text.Json.Serialization.JsonIgnore]
+        public virtual ICollection<Preference> Preferences { get; set; }
+        [System.Text.Json.Serialization.JsonIgnore]
         public virtual ICollection<SessionAttendee> SessionAttendees { get; set; }
+        [System.Text.Json.Serialization.JsonIgnore]
         public virtual ICollection<UserStat> UserStats { get; set; }
     }
 }
