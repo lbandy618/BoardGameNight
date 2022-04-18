@@ -19,6 +19,7 @@ namespace BoardGameNight.Models
         public virtual User? User { get; set; }
         [System.Text.Json.Serialization.JsonIgnore]
         public virtual ICollection<Preference> Preferences { get; set; }
+        [System.Text.Json.Serialization.JsonIgnore]
         public virtual ICollection<Session> Sessions { get; set; }
     }
 }

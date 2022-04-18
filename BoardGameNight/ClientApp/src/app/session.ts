@@ -1,3 +1,5 @@
+import { GameShelf } from "./game-shelf";
+
 export interface Session {
     id: number;
     timePlayed: number;
@@ -5,7 +7,7 @@ export interface Session {
     enjoyment: number;
     ownedId: number;
 
-    owned: any[];
+    owned: GameShelf;
     events: any[];
     sessionAttendees: any[];
 }
