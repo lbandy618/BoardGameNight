@@ -17,8 +17,14 @@ export class GameNightEventService {
     return this.http.get(`${this.baseUrl}api/Event/eventByID?eventID=${id}`);
   }
 
-  getEventBySessionId(sessionId:Number){
-    return this.http.get(`${this.baseUrl}api/Event/eventBySessionID?sessionId=${sessionId}`);
+
+  getEventBySessionId(sessionId:Number[]){
+    let combined:string = "";
+    sessionId.forEach(id => combined += id + "," ) 
+    combined = combined.slice(0, -1) 
+    console.log(combined);
+    return this.http.get(`${this.baseUrl}api/Event/eventBySessionId?sessionId=${combined}`);
+
   }
 
   getEventByDate(date:string):any{

@@ -40,12 +40,14 @@ export class UserProfileComponent implements OnInit {
         let gameIdArray:string [] = [];
         for(let i:number = 0; i < this.sessions.length; i++){
           gameIdArray.push(this.sessions[i].owned.apigameId)
-          this.gameEvents.push(this.getEventBySession(this.sessions[i]));
+          //this.gameEvents.push(this.getEventBySession(this.sessions[i]));
          }
          this.boardGameApiService.getBoardGameByID(gameIdArray).subscribe((response:ApiGame) => {
           console.log(response);
           this.gameSessionTitle = response.games.map(x => x.name)
           console.log(this.gameSessionTitle)
+          this.getEventBySession(this.sessions.map(s => s.id));
+          //console.log(this.gameEvents)
          })
         
       })
@@ -73,13 +75,13 @@ export class UserProfileComponent implements OnInit {
     })
   }
 
-  getEventBySession(newSession:Session){
-    let result: GameNightEvent = {} as GameNightEvent;
-    this.gameNightEventService.getEventBySessionId(newSession.id).subscribe((response:any) => {
+  getEventBySession(newSession:number[]):void{
+    let result: GameNightEvent[] = [];
+    this.gameNightEventService.getEventBySessionId(newSession).subscribe((response:any) => {
     console.log(response)
-    result = response;
+    this.gameEvents = response;
     })
-    return result;
+    
   }
 
   // updateUserName(form:NgForm):any {

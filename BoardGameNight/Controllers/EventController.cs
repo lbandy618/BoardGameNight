@@ -31,9 +31,14 @@ namespace BoardGameNight.Controllers
         }
 
         [HttpGet("eventBySessionId")]
-        public Event getEventBySessionId(int sessionId)
+        public List <Event> getEventBySessionId(string sessionId)
         {
-            return this.context.Events.FirstOrDefault(e => e.SessionId == sessionId);
+            List<Event> result = new List<Event>();
+            foreach (string Id in sessionId.Split(","))
+            {
+                result.Add(this.context.Events.FirstOrDefault(e => e.SessionId == int.Parse(Id)));
+            }
+            return result;
         }
 
         [HttpGet("eventByAttendeeID")]
