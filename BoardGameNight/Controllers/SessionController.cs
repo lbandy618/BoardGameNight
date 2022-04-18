@@ -22,17 +22,25 @@ namespace BoardGameNight.Controllers
 
         }
 
+        [HttpGet("getSessionbyLoginId")]
         public List<Session> getAllSessionsById(string loginId)
         {
             int userId = context.Users.First(u => u.LoginId == loginId).Id;
             List<SessionAttendee> attendees = context.SessionAttendees.Where(u => u.UserId == userId).ToList();
             List<Session> result = new List<Session>();
-            foreach(SessionAttendee a in attendees)
+
+            foreach (SessionAttendee a in attendees)
             {
-                result.Add(context.Sessions.Include(s => s.Owned).FirstOrDefault(s => s.Id == a.SessionId));
+                result.Add(context.Sessions.FirstOrDefault(s => s.Id == a.SessionId));
+            }
+            foreach (Session b in result)
+            {
+                b.Owned = context.GameShelves.Find(b.OwnedId);
             }
             return result;
         }
+
+
 
         [HttpPost("createSession")]
         public Session createSession([FromBody]Session newSession)

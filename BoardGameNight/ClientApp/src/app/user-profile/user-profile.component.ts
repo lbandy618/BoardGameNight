@@ -2,6 +2,10 @@ import { HttpClient } from '@angular/common/http';
 import { Component, Inject, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { SocialAuthService, SocialUser } from 'angularx-social-login';
+import { ApiGame } from '../ApiGame';
+import { BoardgameapiService } from '../boardgameapi.service';
+import { GameShelf } from '../game-shelf';
+import { GameShelfComponent } from '../game-shelf/game-shelf.component';
 import { Session } from '../session';
 import { SessionService } from '../session.service';
 import { User } from '../user';
@@ -17,18 +21,30 @@ export class UserProfileComponent implements OnInit {
   users:User[] = [];
   user: SocialUser = {} as SocialUser;
   loggedIn: boolean = false;
-  sessions: Session[] = []
-  constructor(private http:HttpClient, @Inject('BASE_URL') private baseUrl:string, private userService:UserService, private authService: SocialAuthService, private sessionService:SessionService) { }
+  sessions: Session[] = [];
+  gameSessionTitle: string [] = [];
+  constructor(private http:HttpClient, @Inject('BASE_URL') private baseUrl:string, private userService:UserService, private authService: SocialAuthService, private sessionService:SessionService, private boardGameApiService: BoardgameapiService) { }
 
   ngOnInit(): void {
     this.authService.authState.subscribe((user) => {
       this.user = user;
       this.loggedIn = (user != null);
+      this.sessionService.getAllSessionsById(this.user.id).subscribe((response:any) => {
+        this.sessions = response;
+        console.log(response);
+        let gameIdArray:string [] = [];
+        for(let i:number = 0; i < this.sessions.length; i++){
+          gameIdArray.push(this.sessions[i].owned.apigameId)
+         }
+         this.boardGameApiService.getBoardGameByID(gameIdArray).subscribe((response:ApiGame) => {
+          console.log(response);
+          this.gameSessionTitle = response.games.map(x => x.name)
+          console.log(this.gameSessionTitle)
+         })
+        
+      })
     });
-    this.sessionService.getAllSessionsById(this.user.id).subscribe((response:any) => {
-      this.sessions = response;
-      console.log(response);
-    })
+
   }
 
   updateProfile(form:NgForm):any{

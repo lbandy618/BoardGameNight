@@ -16,8 +16,9 @@ export class SessionService {
     return this.http.get(this.baseUrl + "api/Session")
   }
 
+  //https://localhost:44423/api/Session/getSessionbyLoginId?loginId=103530645823283669226
   getAllSessionsById(loginId:string):any{
-    return this.http.get(this.baseUrl + this.endpoint + `?loginId=${loginId}`)
+    return this.http.get(this.baseUrl + this.endpoint + "/getSessionbyLoginId" + `?loginId=${loginId}`)
   }
 
   //https://localhost:44423/api/Session/createSession
