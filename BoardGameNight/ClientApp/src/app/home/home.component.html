@@ -25,11 +25,11 @@
    <h2> {{ randomGame.name}}</h2>
    <img src="{{ randomGame.thumb_url }}" />
    <p [innerHTML]="randomGame.description"></p>
-   <button (click)="createSession()">Create Session</button>
+  <!-- // <button (click)="createSession()">Create Session</button> -->
 </div>
 
 <div>
-    <form class="form" #addForm="ngForm" (ngSubmit)="createEvent(addForm)">
+    <form class="form" #addForm="ngForm" (ngSubmit)="createSession(addForm)">
         Date:<input type="date" name="date" ngModel />
         <br />
         <button>Create Event</button>

@@ -148,16 +148,17 @@ import { UserService } from '../user.service';
 
     // }
 
-    createEvent(form:NgForm){
+    createEvent(form:NgForm, newSession:Session){
       console.log(form.form.value.date)
       let newEvent : GameNightEvent = {} as GameNightEvent;
       newEvent.date = form.form.value.date;
+      newEvent.sessionId = newSession.id+"";
       this.gameNightEventService.createEvent(newEvent).subscribe((response:any)=>{
         console.log(response);
       })
     }
 
-    createSession(){
+    createSession(form:NgForm){
       let ownedResult: GameShelf = this.selectedUsersGameShelf.filter(s => s.apigameId == this.randomGame.id)[0];  //who owns the game we're choosing
       let newSession : Session = {} as Session;
       newSession.ownedId= ownedResult.id;
@@ -166,6 +167,7 @@ import { UserService } from '../user.service';
         this.sessionService.addAttendees(this.selectedUsers,response.id).subscribe((response1:any)=>{
           console.log(response1);
         });
+        this.createEvent(form, response);
       });
     }
 
