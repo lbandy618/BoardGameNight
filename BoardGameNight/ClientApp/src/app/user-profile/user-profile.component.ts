@@ -52,7 +52,6 @@ export class UserProfileComponent implements OnInit {
         
       })
     });
-
   }
 
   updateProfile(form:NgForm):any{
@@ -81,8 +80,39 @@ export class UserProfileComponent implements OnInit {
     console.log(response)
     this.gameEvents = response;
     })
-    
   }
+
+  updateWinner(form:NgForm):any{
+    let newWinner = form.form.value.winner;
+    console.log(form.form.value.index)
+    let updatedSession: Session = {
+      id: this.sessions[form.form.value.index].id,
+      timePlayed: 0,
+      winner: newWinner,
+      enjoyment: 0,
+      ownedId: 0,
+
+      owned: {} as GameShelf,
+      events: [],
+      sessionAttendees: []
+    }
+
+    this.sessionService.editWinner(updatedSession, this.user.id).subscribe((response:any) => {
+      console.log(response)
+    })
+  }
+
+
+
+
+
+
+
+
+
+
+
+
 
   // updateUserName(form:NgForm):any {
   //   let newUserName = form.form.value.userName;

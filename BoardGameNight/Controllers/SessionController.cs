@@ -51,12 +51,13 @@ namespace BoardGameNight.Controllers
         }
 
         [HttpPatch("editWinner")]
-        public Session editWinner([FromBody]Session updatedSession, int userId)
+        public Session editWinner([FromBody]Session updatedSession, string loginId)
         {
             User user = new User();
-            user = context.Users.Find(userId);
-            updatedSession.Winner = user.UserName;
-            context.Sessions.Update(updatedSession);
+            Session session = context.Sessions.Find(updatedSession.Id);
+            session.Winner = updatedSession.Winner;
+            user = context.Users.FirstOrDefault(l => l.LoginId == loginId);
+            context.Sessions.Update(session);
             context.SaveChanges();
             return updatedSession;
         }

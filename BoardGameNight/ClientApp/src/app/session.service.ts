@@ -26,9 +26,9 @@ export class SessionService {
     let fullUrl:string = this.baseUrl + this.endpoint + "/createSession";
     return this.http.post(fullUrl, session);
   }
-  //https://localhost:44423/api/Session/editWinner?userId=3
-  editWinner(session:Session, userId:number){
-    let fullUrl:string = this.baseUrl + this.endpoint + `?userId=${userId}`;
+  //https://localhost:44423/api/Session/editWinner?loginId=103530645823283669226
+  editWinner(session:Session, loginId:string){
+    let fullUrl:string = this.baseUrl + this.endpoint + `/editWinner?loginId=${loginId}`;
     return this.http.patch(fullUrl, session);
   }
   //https://localhost:44423/api/Session/editWinner?userId=3
