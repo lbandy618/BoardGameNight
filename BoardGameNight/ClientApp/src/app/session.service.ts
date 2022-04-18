@@ -16,6 +16,10 @@ export class SessionService {
     return this.http.get(this.baseUrl + "api/Session")
   }
 
+  getAllSessionsById(loginId:string):any{
+    return this.http.get(this.baseUrl + this.endpoint + `?loginId=${loginId}`)
+  }
+
   //https://localhost:44423/api/Session/createSession
   createSession(session:Session){
     let fullUrl:string = this.baseUrl + this.endpoint + "/createSession";

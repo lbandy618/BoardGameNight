@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using BoardGameNight.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -19,6 +20,18 @@ namespace BoardGameNight.Controllers
         {
             return context.Sessions.ToList();
 
+        }
+
+        public List<Session> getAllSessionsById(string loginId)
+        {
+            int userId = context.Users.First(u => u.LoginId == loginId).Id;
+            List<SessionAttendee> attendees = context.SessionAttendees.Where(u => u.UserId == userId).ToList();
+            List<Session> result = new List<Session>();
+            foreach(SessionAttendee a in attendees)
+            {
+                result.Add(context.Sessions.Include(s => s.Owned).FirstOrDefault(s => s.Id == a.SessionId));
+            }
+            return result;
         }
 
         [HttpPost("createSession")]
