@@ -1,6 +1,6 @@
-<header>
+<header class="sticky-top">
   <nav
-    class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3"
+    class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark border-bottom box-shadow mb-3"
   >
     <div class="container">
       <a class="navbar-brand" [routerLink]="['/']">BoardGameNight</a>
@@ -25,21 +25,35 @@
             [routerLinkActive]="['link-active']"
             [routerLinkActiveOptions]="{ exact: true }"
           >
-            <a class="nav-link text-dark" [routerLink]="['/']">Home</a>
+            <a class="nav-link text-white" [routerLink]="['/']">Home</a>
           </li>
           <li class="nav-item" [routerLinkActive]="['link-active']">
+<<<<<<< HEAD
+            <a class="nav-link text-white" [routerLink]="['/counter']"
+              >Counter</a
+            >
+          </li>
+          <li class="nav-item" [routerLinkActive]="['link-active']">
+            <a class="nav-link text-white" [routerLink]="['/fetch-data']"
+              >Fetch data</a
+            >
+          </li>
+          <li class="nav-item" [routerLinkActive]="['link-active']">
+            <a class="nav-link text-white" [routerLink]="['/user-profile']"
+=======
             <a class="nav-link text-dark" [routerLink]="['/user-profile']"
+>>>>>>> 55399b6e1ed7445153072fe3fd5e088e87e5760b
               >Profile</a
             >
           </li>    
           <li  *ngIf="loggedIn" class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-dark" [routerLink]="['/gameshelf']"
+            <a class="nav-link text-white" [routerLink]="['/gameshelf']"
               >Gameshelf</a
             >
           </li>   
           <li class="nav-item">
-            <button class="btn btn-outline-dark" *ngIf="!loggedIn" (click)="signInWithGoogle()"> Log In </button>
-            <button class="btn btn-outline-dark" *ngIf="loggedIn"  (click)="signOut()">Sign Out
+            <button class="btn btn-outline-dark" class="nav-link text-white" *ngIf="!loggedIn" (click)="signInWithGoogle()"> Log In </button>
+            <button class="btn btn-outline-dark" class="nav-link text-white" *ngIf="loggedIn"  (click)="signOut()">Sign Out
             </button>
             </li>
         

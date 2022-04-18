@@ -1,25 +1,35 @@
-<form #searchForm="ngForm" (ngSubmit)="getGameByName(searchForm)">
+<form #searchForm="ngForm" (ngSubmit)="getGameByName(searchForm)" class="centerText">
     <input type="text" name="name" ngModel>
     <button>Search</button>
 </form>
  
-<div *ngFor="let g of gameSearch.games">
-    <button (click)="selectGameFromSearch(g)"> {{g.name}} </button>
+<div *ngFor="let g of gameSearch.games" class="centerText">
+    <button (click)="selectGameFromSearch(g)" class="centerText"> {{g.name}} </button>
 </div>
 
 <div>
-    <h1>
+    <h1 class="centerText">
        {{ selectedGame.name }} 
     </h1>
     <img src="{{ selectedGame.thumb_url}}">
+<<<<<<< HEAD
+    <p class="centerText">{{ selectedGame.description }}</p>
+=======
     <p [innerHTML]="selectedGame.description"></p>
+>>>>>>> 55399b6e1ed7445153072fe3fd5e088e87e5760b
     
 </div>
 
-<div *ngIf="loggedIn">
+<div *ngIf="loggedIn" >
     <button (click)="addGameToGameShelf(selectedGame.id)" >Add Game to Shelf</button>
 </div>
 
+<<<<<<< HEAD
+<div *ngFor="let g of myGameShelf" >
+    <!-- {{g.name}} -->
+    <!-- {{getGameByAPIId(g.apigameId).name}} -->
+=======
 <div *ngFor="let g of myGameShelf">
     {{ g.name }}
+>>>>>>> 55399b6e1ed7445153072fe3fd5e088e87e5760b
 </div>
