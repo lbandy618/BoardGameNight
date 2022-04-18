@@ -30,6 +30,12 @@ namespace BoardGameNight.Controllers
             return this.context.Events.Where(e => e.Date == date).ToList();
         }
 
+        [HttpGet("eventBySessionId")]
+        public Event getEventBySessionId(int sessionId)
+        {
+            return this.context.Events.FirstOrDefault(e => e.SessionId == sessionId);
+        }
+
         [HttpGet("eventByAttendeeID")]
         public List<Event> getEventsByAttendeeID(int loginId)
         {

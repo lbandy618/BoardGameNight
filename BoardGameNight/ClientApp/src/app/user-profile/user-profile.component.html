@@ -8,7 +8,7 @@
 
 <div *ngIf="gameSessionTitle.length > 0">
   <div *ngFor="let s of sessions; index as i">
-    {{s.id}} {{ gameSessionTitle[i] }}
+    {{s.id}} {{ gameSessionTitle[i] }} {{ gameEvents[i].date }}
   </div>
 </div>
 

@@ -17,6 +17,10 @@ export class GameNightEventService {
     return this.http.get(`${this.baseUrl}api/Event/eventByID?eventID=${id}`);
   }
 
+  getEventBySessionId(sessionId:Number){
+    return this.http.get(`${this.baseUrl}api/Event/eventBySessionID?sessionId=${sessionId}`);
+  }
+
   getEventByDate(date:string):any{
     return this.http.get(`${this.baseUrl}api/Event/eventByDate?date=${date}`);
   }

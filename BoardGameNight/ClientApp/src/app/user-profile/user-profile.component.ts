@@ -5,7 +5,10 @@ import { SocialAuthService, SocialUser } from 'angularx-social-login';
 import { ApiGame } from '../ApiGame';
 import { BoardgameapiService } from '../boardgameapi.service';
 import { GameShelf } from '../game-shelf';
+import { GameShelfService } from '../game-shelf.service';
 import { GameShelfComponent } from '../game-shelf/game-shelf.component';
+import { GameNightEvent } from '../gamenightevent';
+import { GameNightEventService } from '../gamenightevent.service';
 import { Session } from '../session';
 import { SessionService } from '../session.service';
 import { User } from '../user';
@@ -23,7 +26,9 @@ export class UserProfileComponent implements OnInit {
   loggedIn: boolean = false;
   sessions: Session[] = [];
   gameSessionTitle: string [] = [];
-  constructor(private http:HttpClient, @Inject('BASE_URL') private baseUrl:string, private userService:UserService, private authService: SocialAuthService, private sessionService:SessionService, private boardGameApiService: BoardgameapiService) { }
+  gameEvents: GameNightEvent [] = [];
+
+  constructor(private http:HttpClient, @Inject('BASE_URL') private baseUrl:string, private userService:UserService, private authService: SocialAuthService, private sessionService:SessionService, private boardGameApiService: BoardgameapiService, private gameNightEventService: GameNightEventService) { }
 
   ngOnInit(): void {
     this.authService.authState.subscribe((user) => {
@@ -35,6 +40,7 @@ export class UserProfileComponent implements OnInit {
         let gameIdArray:string [] = [];
         for(let i:number = 0; i < this.sessions.length; i++){
           gameIdArray.push(this.sessions[i].owned.apigameId)
+          this.gameEvents.push(this.getEventBySession(this.sessions[i]));
          }
          this.boardGameApiService.getBoardGameByID(gameIdArray).subscribe((response:ApiGame) => {
           console.log(response);
@@ -67,7 +73,14 @@ export class UserProfileComponent implements OnInit {
     })
   }
 
-
+  getEventBySession(newSession:Session){
+    let result: GameNightEvent = {} as GameNightEvent;
+    this.gameNightEventService.getEventBySessionId(newSession.id).subscribe((response:any) => {
+    console.log(response)
+    result = response;
+    })
+    return result;
+  }
 
   // updateUserName(form:NgForm):any {
   //   let newUserName = form.form.value.userName;
