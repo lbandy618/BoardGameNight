@@ -2,6 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Component, Inject, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { SocialAuthService, SocialUser } from 'angularx-social-login';
+import { Session } from '../session';
+import { SessionService } from '../session.service';
 import { User } from '../user';
 import { UserService } from '../user.service';
 
@@ -15,13 +17,18 @@ export class UserProfileComponent implements OnInit {
   users:User[] = [];
   user: SocialUser = {} as SocialUser;
   loggedIn: boolean = false;
-  constructor(private http:HttpClient, @Inject('BASE_URL') private baseUrl:string, private userService:UserService, private authService: SocialAuthService) { }
+  sessions: Session[] = []
+  constructor(private http:HttpClient, @Inject('BASE_URL') private baseUrl:string, private userService:UserService, private authService: SocialAuthService, private sessionService:SessionService) { }
 
   ngOnInit(): void {
     this.authService.authState.subscribe((user) => {
       this.user = user;
       this.loggedIn = (user != null);
     });
+    this.sessionService.getAllSessionsById(this.user.id).subscribe((response:any) => {
+      this.sessions = response;
+      console.log(response);
+    })
   }
 
   updateProfile(form:NgForm):any{

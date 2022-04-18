@@ -10,10 +10,13 @@
 <div>
     <h1 class="centerText">
        {{ selectedGame.name }} 
-       
     </h1>
     <img src="{{ selectedGame.thumb_url}}">
+<<<<<<< HEAD
     <p class="centerText">{{ selectedGame.description }}</p>
+=======
+    <p [innerHTML]="selectedGame.description"></p>
+>>>>>>> 55399b6e1ed7445153072fe3fd5e088e87e5760b
     
 </div>
 
@@ -21,7 +24,12 @@
     <button (click)="addGameToGameShelf(selectedGame.id)" >Add Game to Shelf</button>
 </div>
 
+<<<<<<< HEAD
 <div *ngFor="let g of myGameShelf" >
     <!-- {{g.name}} -->
     <!-- {{getGameByAPIId(g.apigameId).name}} -->
+=======
+<div *ngFor="let g of myGameShelf">
+    {{ g.name }}
+>>>>>>> 55399b6e1ed7445153072fe3fd5e088e87e5760b
 </div>

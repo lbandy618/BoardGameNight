@@ -13,4 +13,3 @@ namespace BoardGameNight.Models
         public virtual User? User { get; set; }
     }
 }
-

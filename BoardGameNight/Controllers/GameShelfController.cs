@@ -14,7 +14,7 @@ namespace BoardGameNight.Controllers
         // /api/GameShelf
         public List<GameShelf> GetGameShelf()
         {
-            List<GameShelf> shelfList = context.OwnedGames.ToList();
+            List<GameShelf> shelfList = context.GameShelves.ToList();
             return shelfList;
         }
 
@@ -22,7 +22,13 @@ namespace BoardGameNight.Controllers
         // /api/GameShelf/ById/2
         public GameShelf GetOwnedGameById(int id)
         {
-            return context.OwnedGames.Where(g => g.Id == id).FirstOrDefault();
+            return context.GameShelves.Where(g => g.Id == id).FirstOrDefault();
+        }
+
+        [HttpGet("ByApiGameId")]
+        public GameShelf GetOwnedGameByApiId(string gameApiId)
+        {
+            return context.GameShelves.Where(g => g.ApigameId == gameApiId).FirstOrDefault();
         }
 
         [HttpGet("SearchGameShelfByLoginId")]
@@ -30,14 +36,14 @@ namespace BoardGameNight.Controllers
         public List<GameShelf> SearchGameShelfByLoginId(string loginId)
         {
             int userId = context.Users.First(u => u.LoginId == loginId).Id;
-            return context.OwnedGames.Where(g => g.UserId == userId).ToList();
+            return context.GameShelves.Where(g => g.UserId == userId).ToList();
         }
 
         [HttpGet("SearchGameShelfByUserId")]
         // api/GameShelf/SearchGameShelfByUserId?userId=1
         public List<GameShelf> SearchGameShelfByUserId(int userId)
         {
-            return context.OwnedGames.Where(g => g.UserId == userId).ToList();
+            return context.GameShelves.Where(g => g.UserId == userId).ToList();
         }
 
         [HttpPost("addGametoGameShelf")]
@@ -47,7 +53,7 @@ namespace BoardGameNight.Controllers
             GameShelf result = new GameShelf();
             result.ApigameId = apiGameId;
             result.UserId = context.Users.First(u => u.LoginId == userId).Id;
-            context.OwnedGames.Add(result);
+            context.GameShelves.Add(result);
             context.SaveChanges();
             return result;
         }
@@ -57,10 +63,10 @@ namespace BoardGameNight.Controllers
         public void DeleteOwnedGameById(int id)
         {
             GameShelf result = null;
-            result = context.OwnedGames.FirstOrDefault(g => g.Id == id);
+            result = context.GameShelves.FirstOrDefault(g => g.Id == id);
             if(result != null)
             {
-                context.OwnedGames.Remove(result);
+                context.GameShelves.Remove(result);
                 context.SaveChanges();
             }
         }
@@ -70,7 +76,7 @@ namespace BoardGameNight.Controllers
         public void EditRating([FromBody]GameShelf updatedGameShelf, int rating)
         {
             updatedGameShelf.Rating = rating;
-            context.OwnedGames.Update(updatedGameShelf);
+            context.GameShelves.Update(updatedGameShelf);
             context.SaveChanges();
         }
     }

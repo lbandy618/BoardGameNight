@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { Session } from './session';
+import { User } from './user';
 
 @Injectable({
   providedIn: 'root'
@@ -15,9 +16,13 @@ export class SessionService {
     return this.http.get(this.baseUrl + "api/Session")
   }
 
+  getAllSessionsById(loginId:string):any{
+    return this.http.get(this.baseUrl + this.endpoint + `?loginId=${loginId}`)
+  }
+
   //https://localhost:44423/api/Session/createSession
   createSession(session:Session){
-    let fullUrl:string = this.baseUrl + this.endpoint;
+    let fullUrl:string = this.baseUrl + this.endpoint + "/createSession";
     return this.http.post(fullUrl, session);
   }
   //https://localhost:44423/api/Session/editWinner?userId=3
@@ -35,5 +40,10 @@ export class SessionService {
   editEnjoyment(session:Session, enjoyment:number){
     let fullUrl:string =  this.baseUrl + this.endpoint + `?enjoyment=${enjoyment}`;
     return this.http.patch(fullUrl, session);
+  }
+
+  addAttendees(attendees: User[], sessionId:number){
+    let fullUrl:string =  this.baseUrl + this.endpoint + `/addAttendees?sessionID=${sessionId}`;
+    return this.http.post(fullUrl, attendees);
   }
 }

@@ -46,20 +46,18 @@ myGameShelf : GameElement [] = [];
     console.log(choice);
   }
 
-  getGameByAPIId(apiId: string):GameElement{
-    let result : GameElement = {} as GameElement;
-    this.apiService.getBoardGameByID([apiId]).subscribe((response:ApiGame)=>{
-      result = response.games[0];
+  getGameByAPIId():void{
+    this.apiService.getBoardGameByID(this.gameshelf.map(g => g.apigameId)).subscribe((response:ApiGame)=>{
+      this.myGameShelf = response.games;
     })
-    return result;
   }
-
 
   getGameShelfByLoginId(loginId:string){
     this.gameShelfService.searchGameShelfByLoginId(loginId).subscribe((response:any)=>{
       this.gameshelf = response;
       console.log(this.gameshelf);
-      this.gameshelf.forEach(g=> this.myGameShelf.push(this.getGameByAPIId(g.apigameId)));
+      this.getGameByAPIId();
+      //  this.gameshelf.forEach(g=> this.myGameShelf.push(this.getGameByAPIId(g.apigameId)));
     })
   }
 

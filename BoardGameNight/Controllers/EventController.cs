@@ -31,9 +31,9 @@ namespace BoardGameNight.Controllers
         }
 
         [HttpGet("eventByAttendeeID")]
-        public List<Event> getEventsByAttendeeID(int userID)
+        public List<Event> getEventsByAttendeeID(int loginId)
         {
-            List<SessionAttendee> sessionAttendees = this.context.SessionAttendees.Where(a => a.UserId == userID).ToList();
+            List<SessionAttendee> sessionAttendees = this.context.SessionAttendees.Where(a => a.UserId == loginId).ToList();
             List<Session> sessionsAttended = new List<Session>();
             foreach (SessionAttendee sessionAttendee in sessionAttendees)
             {

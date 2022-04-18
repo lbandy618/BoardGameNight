@@ -6,6 +6,10 @@ import { BoardgameapiService } from '../boardgameapi.service';
 import { Category, iCategory } from '../category';
 import { GameShelf } from '../game-shelf';
 import { GameShelfService } from '../game-shelf.service';
+import { GameNightEvent } from '../gamenightevent';
+import { GameNightEventService } from '../gamenightevent.service';
+import { Session } from '../session';
+import { SessionService } from '../session.service';
 import { User } from '../user';
 import { UserService } from '../user.service';
 
@@ -26,7 +30,7 @@ import { UserService } from '../user.service';
   apiGameList: GameElement[] = [];
   randomGame: GameElement = {} as GameElement;
 
-  constructor(private userService: UserService, private gameShelfService: GameShelfService, private boardGameApiService: BoardgameapiService) { }
+  constructor(private sessionService:SessionService, private gameNightEventService: GameNightEventService, private userService: UserService, private gameShelfService: GameShelfService, private boardGameApiService: BoardgameapiService) { }
 
 
   ngOnInit(): void {
@@ -85,13 +89,12 @@ import { UserService } from '../user.service';
 
   selectedGamesCategories(){
     if (this.selectedUsersGameShelf.length > 0){
-      console.log(this.selectedUsersGameShelf)
       let selectedGameIds:string[] = []
       this.selectedUsersGameShelf.forEach(g=>{
         selectedGameIds.push(g.apigameId)
       })
         console.log(selectedGameIds)
-        let sortedArray:string[] = selectedGameIds.sort();
+       let sortedArray:string[] = selectedGameIds.sort();
         let results:string[] = [];
         for(let i = 0; i < sortedArray.length - 1; i++){
           if(sortedArray[i+1] == sortedArray[i]){
@@ -144,5 +147,27 @@ import { UserService } from '../user.service';
     // getNumberOfPlayers(form:NgForm){
 
     // }
+
+    createEvent(form:NgForm){
+      console.log(form.form.value.date)
+      let newEvent : GameNightEvent = {} as GameNightEvent;
+      newEvent.date = form.form.value.date;
+      this.gameNightEventService.createEvent(newEvent).subscribe((response:any)=>{
+        console.log(response);
+      })
+    }
+
+    createSession(){
+      let ownedResult: GameShelf = this.selectedUsersGameShelf.filter(s => s.apigameId == this.randomGame.id)[0];  //who owns the game we're choosing
+      let newSession : Session = {} as Session;
+      newSession.ownedId= ownedResult.id;
+      this.sessionService.createSession(newSession).subscribe((response:any)=>{
+        console.log(response);
+        this.sessionService.addAttendees(this.selectedUsers,response.id).subscribe((response1:any)=>{
+          console.log(response1);
+        });
+      });
+    }
+
 
 }

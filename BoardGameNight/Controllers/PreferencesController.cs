@@ -11,14 +11,14 @@ namespace BoardGameNight.Controllers
         BoardGameNightDBContext context = new BoardGameNightDBContext();
 
         [HttpGet]
-        public List<Preferences> GetAllPreferences()
+        public List<Preference> GetAllPreferences()
         {
             return context.Preferences.ToList();
         }
 
         [HttpGet("ByUserId/{userId}")]
         //api/Preferences/ByUserId/{userId}
-        public Preferences GetPreferencesByUserId(int userId)
+        public Preference GetPreferencesByUserId(int userId)
         {
             return context.Preferences.Where(p => p.UserId == userId).FirstOrDefault();
         }
@@ -26,7 +26,7 @@ namespace BoardGameNight.Controllers
         [HttpPost]
         //make sure to add at least category and userId
         //api/Preferences/
-        public Preferences createPreferences([FromBody]Preferences newPreferences)
+        public Preference createPreferences([FromBody]Preference newPreferences)
         {
             context.Preferences.Add(newPreferences);
             context.SaveChanges();
@@ -36,7 +36,7 @@ namespace BoardGameNight.Controllers
         
         [HttpPatch("editCategory")]
         //api/Preferences/editCategory?category=meow
-        public void editCategory([FromBody] Preferences updatedPreference, string category)
+        public void editCategory([FromBody] Preference updatedPreference, string category)
         {
             updatedPreference.Categories = category;
             context.Preferences.Update(updatedPreference);
@@ -52,7 +52,7 @@ namespace BoardGameNight.Controllers
         }
 
         [HttpPatch("byMaxTime")]
-        public void AddMaxTime(double maxTime, [FromBody] Preferences updatedPreference)
+        public void AddMaxTime(double maxTime, [FromBody] Preference updatedPreference)
         {
             updatedPreference.MaxTime = maxTime;
             context.Preferences.Update(updatedPreference);
@@ -60,7 +60,7 @@ namespace BoardGameNight.Controllers
         }
 
         [HttpPatch("byYearPublished")]
-        public void AddYearPublished(int yearPulished, [FromBody] Preferences updatedPreference)
+        public void AddYearPublished(int yearPulished, [FromBody] Preference updatedPreference)
         {
             updatedPreference.YearPublished = yearPulished;
             context.Preferences.Update(updatedPreference);

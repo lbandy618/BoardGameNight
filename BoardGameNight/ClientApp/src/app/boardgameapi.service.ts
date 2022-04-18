@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Secret } from './secret';
+import { Secret } from './Secret';
 
 @Injectable({
   providedIn: 'root'
@@ -91,12 +91,5 @@ export class BoardgameapiService {
   getBoardGameMinPlayTime(boardgameMinPlayTime:number):any{
   return this.http.get(`${this.url})/api/search?max_playtime=${boardgameMinPlayTime}&client_id=${Secret.clientID}`)
   }
-
-     
-      
-
-  
-
-
 }
 
