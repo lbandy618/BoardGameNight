@@ -1,37 +1,53 @@
-<button (click)="togglePeople()">Display People</button>
-<br>
-<div *ngIf="displayPeople==true">
-    <div class="text-color" *ngFor="let u of users">
-        <input type="checkbox" (click)="selectUser(u)">
-        {{ u.userName }}
-    </div>
-</div>
-<button (click)="getSelectedUserOwnedGames()"> Collected Game Shelf</button>
-<!-- <button (click)="selectedGamesCategories()"> Categories</button>
-
-<button (click)="toggleCategory()">Choose a Category</button> -->
-
-<div *ngIf="displayCategoryNames == true">
-    <div *ngIf="selectedCategoryNames.length > 0">
-        <div class="text-color" *ngFor="let n of selectedCategoryNames">
-            <input type="radio"  name="category" (click)="selectCategory(n)" />
-            {{ n }}
+<div class="container">
+    <div class="row justify-content-around">
+        <div class="col-3">
+            <button  (click)="togglePeople()">Select&nbsp;&nbsp;Players</button>
+            <br>
+            <div *ngIf="displayPeople==true">
+                <div class="text-color" *ngFor="let u of users">
+                    <input type="checkbox" (click)="selectUser(u)">
+                    {{ u.userName }}
+                </div>
+            </div>
         </div>
+       <div class="col-3">
+        <button   (click)="getSelectedUserOwnedGames()">Select Category</button>
+        <div *ngIf="displayCategoryNames == true">
+            <div *ngIf="selectedCategoryNames.length > 0">
+                <div class="text-color" *ngFor="let n of selectedCategoryNames">
+                    <input type="radio"  name="category" (click)="selectCategory(n)" />
+                    {{ n }}
+                </div>
+            </div>
+        </div>
+       </div>
     </div>
-
 </div>
+<br>
 <div>
-    <button (click)="callApiGamefromShelf()">Generate Game</button>
-   <h2 class="text-color"> {{ randomGame.name}}</h2>
-   <img onerror="this.style.display='none'" style="width:250px; height:250px" src="{{ randomGame.thumb_url }}" />
-   <img style="display: none" onload="this.style.display=''" style="width:250px; height:250px" src="{{ randomGame.thumb_url }}" />
-   <p  class="description" [innerHTML]="randomGame.description"></p>
+    <div class="d-flex justify-content-center"> 
+        <button (click)="callApiGamefromShelf()">Generate Game</button> 
+    </div>
+    <br>
+
+    <div class="row justify-content-center" *ngIf="randomGame.thumb_url != null">
+        <div class="d-flex justify-content-center">
+            <h2 class="text-color"> {{ randomGame.name}}</h2>
+        </div>
+        <img style="width:250px; height:250px; margin-top: 5px;" src="{{ randomGame.thumb_url }}" />
+        <p  class="description" [innerHTML]="randomGame.description"></p>
+    </div>
 </div>
 
-<div>
-    <form class="form text-color"  #addForm="ngForm" (ngSubmit)="createSession(addForm)">
-        Date:<input type="date" name="date" ngModel />
-        <br />
-        <button>Create Event</button>
-      </form>
+<div class="">
+    <div class="d-flex justify-content-center">
+        <form class="form text-color"  #addForm="ngForm" (ngSubmit)="createSession(addForm)">
+            Date:<input type="date" name="date" ngModel />
+            <div style="margin-top: 10px;" class="d-flex justify-content-center">
+                <button>Create Event</button>
+            </div>
+            
+          </form>
+    </div>
+    
 </div>

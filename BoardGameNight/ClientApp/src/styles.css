@@ -5,6 +5,11 @@ a {
   color: #0366d6;
 }
 
+.flex{
+  display: flex;
+  justify-content: space-between;
+}
+
 code {
   color: #e01a76;
 }
@@ -23,7 +28,10 @@ code {
 .description {
   border: solid black 1px;
   background-color: #eec8ed;
-  text-color: #120348;
+  color: #120348;
+  font-size: 10px;
+  padding: 5px;
+  margin-top: 10px;
 }
 
 /* img {
