@@ -80,6 +80,7 @@ import { UserService } from '../user.service';
       this.selectedGamesCategories();
       })
     })
+    this.toggleCategory();
   }
 
   getSelectedCategory(){
@@ -132,7 +133,7 @@ import { UserService } from '../user.service';
     })
     this.selectedCategoryNames = Array.from(new Set(this.selectedCategoryNames));
     console.log(this.selectedCategoryNames);
-    this.toggleCategory();
+    
   }
 
   callApiGamefromShelf(){
