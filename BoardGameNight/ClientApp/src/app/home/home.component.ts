@@ -77,6 +77,7 @@ import { UserService } from '../user.service';
     this.gameShelfService.searchGameShelfByUserId(u.id).subscribe((response:GameShelf[] )=>{
       console.log(response);
       this.selectedUsersGameShelf = this.selectedUsersGameShelf.concat(response)
+      this.selectedGamesCategories();
       })
     })
   }
@@ -131,6 +132,7 @@ import { UserService } from '../user.service';
     })
     this.selectedCategoryNames = Array.from(new Set(this.selectedCategoryNames));
     console.log(this.selectedCategoryNames);
+    this.toggleCategory();
   }
 
   callApiGamefromShelf(){

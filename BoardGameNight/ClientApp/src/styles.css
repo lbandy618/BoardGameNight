@@ -14,15 +14,34 @@ code {
   background-color: #1b6ec2;
   border-color: #1861ac;
 }
-
+.text-color {
+  color: #e7e4f9
+}
 .centerText {
   text-align: center;
 }
+.description {
+  border: solid black 1px;
+  background-color: #eec8ed;
+  text-color: #120348;
+}
+
+/* img {
+  width: 250px;
+  height: 250px;
+} */
 
 body{
-  background-color: #545580;
+  background-color: #3a2081;
   font-family: 'Cinzel Decorative', cursive;
   
+}
+
+button{
+  border-radius: 10px;
+  padding: 6px;
+  background-color: #eec8ed;
+  border: solid black 1px;
 }
 
 /* CSS */
