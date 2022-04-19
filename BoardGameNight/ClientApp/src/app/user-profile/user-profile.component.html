@@ -9,15 +9,25 @@
 <div *ngIf="gameSessionTitle.length > 0">
   <div *ngFor="let s of sessions; index as i">
     {{ gameEvents[i].date }} {{ gameSessionTitle[i] }}
-    <div>
+    <div *ngIf="s.winner == null">
       <form class="form" #addForm="ngForm" (ngSubmit)="updateWinner(addForm)">
-        Winner:<input type="text" name="winner" ngModel />
+        <div>
+          <button (click)="toggleAttendees()">Display Attendees</button>
+        </div>
+        <div *ngIf="displayAttendees == true">
+          <div *ngFor="let p of s.sessionAttendees">
+            <p>{{ p.user.userName }}</p><input type="radio" name="winner" value="{{ p.user.userName }}" ngModel />
+          </div>
+        </div>
         <input type="hidden" name="index" ngModel="{{ i }}" />
         <br />
         <button>Submit</button>
       </form>
     </div> 
-  </div>
+    <div *ngIf="s.winner !=null">
+      <p>Winner: {{ s.winner }}</p>
+    </div>
+  </div> 
 </div>
 
 

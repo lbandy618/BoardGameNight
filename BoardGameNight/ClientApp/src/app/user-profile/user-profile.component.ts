@@ -27,6 +27,7 @@ export class UserProfileComponent implements OnInit {
   sessions: Session[] = [];
   gameSessionTitle: string [] = [];
   gameEvents: GameNightEvent [] = [];
+  displayAttendees: boolean = false;
 
   constructor(private http:HttpClient, @Inject('BASE_URL') private baseUrl:string, private userService:UserService, private authService: SocialAuthService, private sessionService:SessionService, private boardGameApiService: BoardgameapiService, private gameNightEventService: GameNightEventService) { }
 
@@ -101,6 +102,13 @@ export class UserProfileComponent implements OnInit {
       console.log(response)
     })
   }
+
+  toggleAttendees(){
+    this.displayAttendees = !this.displayAttendees;
+  }
+  
+
+  
 
 
 
