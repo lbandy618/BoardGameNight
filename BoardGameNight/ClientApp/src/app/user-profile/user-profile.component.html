@@ -12,16 +12,16 @@
     <div *ngIf="s.winner == null">
       <form class="form" #addForm="ngForm" (ngSubmit)="updateWinner(addForm)">
         <div>
-          <button (click)="toggleAttendees()">Display Attendees</button>
+          <button (click)="toggleAttendees(i)">Select Winner</button>
         </div>
-        <div *ngIf="displayAttendees == true">
+        <div *ngIf="displayAttendees[i] == true">
           <div *ngFor="let p of s.sessionAttendees">
-            <p>{{ p.user.userName }}</p><input type="radio" name="winner" value="{{ p.user.userName }}" ngModel />
+            <input type="radio" name="winner" value="{{ p.user.userName }}" id="buttonName" ngModel /> <label for="buttonName">{{ p.user.userName }}</label>
           </div>
         </div>
         <input type="hidden" name="index" ngModel="{{ i }}" />
         <br />
-        <button>Submit</button>
+          <button>Submit</button>
       </form>
     </div> 
     <div *ngIf="s.winner !=null">

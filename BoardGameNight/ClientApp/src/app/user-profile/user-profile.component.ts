@@ -27,7 +27,8 @@ export class UserProfileComponent implements OnInit {
   sessions: Session[] = [];
   gameSessionTitle: string [] = [];
   gameEvents: GameNightEvent [] = [];
-  displayAttendees: boolean = false;
+  displayAttendees: boolean [] = [];
+  
 
   constructor(private http:HttpClient, @Inject('BASE_URL') private baseUrl:string, private userService:UserService, private authService: SocialAuthService, private sessionService:SessionService, private boardGameApiService: BoardgameapiService, private gameNightEventService: GameNightEventService) { }
 
@@ -37,6 +38,7 @@ export class UserProfileComponent implements OnInit {
       this.loggedIn = (user != null);
       this.sessionService.getAllSessionsById(this.user.id).subscribe((response:any) => {
         this.sessions = response;
+        this.displayAttendees = new Array(this.sessions.length).fill(false);
         console.log(response);
         let gameIdArray:string [] = [];
         for(let i:number = 0; i < this.sessions.length; i++){
@@ -85,26 +87,31 @@ export class UserProfileComponent implements OnInit {
 
   updateWinner(form:NgForm):any{
     let newWinner = form.form.value.winner;
-    console.log(form.form.value.index)
-    let updatedSession: Session = {
-      id: this.sessions[form.form.value.index].id,
-      timePlayed: 0,
-      winner: newWinner,
-      enjoyment: 0,
-      ownedId: 0,
-
-      owned: {} as GameShelf,
-      events: [],
-      sessionAttendees: []
+    let winnerIndex = form.form.value.index;
+    if(newWinner == "" || newWinner == null){
+      console.log(newWinner)
     }
-
-    this.sessionService.editWinner(updatedSession, this.user.id).subscribe((response:any) => {
-      console.log(response)
-    })
+    else{
+      let updatedSession: Session = {
+        id: this.sessions[winnerIndex].id,
+        timePlayed: 0,
+        winner: newWinner,
+        enjoyment: 0,
+        ownedId: 0,
+  
+        owned: {} as GameShelf,
+        events: [],
+        sessionAttendees: []
+      }
+      this.sessionService.editWinner(updatedSession, this.user.id).subscribe((response:any) => {
+        this.sessions[winnerIndex].winner = newWinner;
+        console.log(response)
+      })
+    }
   }
 
-  toggleAttendees(){
-    this.displayAttendees = !this.displayAttendees;
+  toggleAttendees(index:number){
+    this.displayAttendees[index] = !this.displayAttendees[index];
   }
   
 
