@@ -52,6 +52,15 @@ button{
   border: solid black 1px;
 }
 
+.session{
+  border-radius: 10px;
+  padding: 6px;
+  background-color: #eec8ed;
+  border: solid black 1px;
+  color:#3a2081
+}
+
+
 /* CSS */
 .button-82-pushable {
   position: relative;

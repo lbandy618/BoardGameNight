@@ -1,33 +1,56 @@
-<form class="form" #addForm="ngForm" (ngSubmit)="updateProfile(addForm)">
-  Username:<input type="text" name="userName" ngModel />
-  Age:<input type="text" name="age" ngModel />
-  Summary:<input type="text" name="summary" ngModel />
-  <br />
-  <button>Submit</button>
-</form>
 
-<div *ngIf="gameSessionTitle.length > 0">
-  <div *ngFor="let s of sessions; index as i">
-    {{ gameEvents[i].date }} {{ gameSessionTitle[i] }}
-    <div *ngIf="s.winner == null">
-      <form class="form" #addForm="ngForm" (ngSubmit)="updateWinner(addForm)">
-        <div>
-          <button (click)="toggleAttendees(i)">Select Winner</button>
-        </div>
-        <div *ngIf="displayAttendees[i] == true">
-          <div *ngFor="let p of s.sessionAttendees">
-            <input type="radio" name="winner" value="{{ p.user.userName }}" id="buttonName" ngModel /> <label for="buttonName">{{ p.user.userName }}</label>
-          </div>
-        </div>
-        <input type="hidden" name="index" ngModel="{{ i }}" />
-        <br />
-          <button>Submit</button>
-      </form>
+<div class="text-color">
+  <div *ngIf="getLoggedInUser(user.id) != null">
+    <div>
+      <p>User Name:</p> <h4>{{ getLoggedInUser(user.id).userName }}</h4>
     </div> 
-    <div *ngIf="s.winner !=null">
-      <p>Winner: {{ s.winner }}</p>
-    </div>
-  </div> 
+    <h5>Summary:</h5> <p>{{ getLoggedInUser(user.id).summary }}</p>  
+  </div>
+</div>
+<button class="button" (click)="toggleFormDisplay()">Edit Profile</button>
+<div *ngIf="displayForm">
+  <div class="text-color">
+    <form class="form" #addForm="ngForm" (ngSubmit)="updateProfile(addForm)">
+      Username:<input type="text" name="userName" ngModel />
+      Age:<input type="text" name="age" ngModel />
+      Summary:<input type="text" name="summary" ngModel />
+      <br />
+      <button>Save</button>
+    </form>
+  </div>
+</div>
+
+<div>
+  <h5 class="text-color">Game Session Log</h5>
+  <div *ngIf="gameSessionTitle.length > 0">
+    <div *ngFor="let s of sessions; index as i">
+      <div class="session">
+        <img style="width:75px" src="{{ gameSessionImage[i] }}" />
+        {{ gameEvents[i].date }} 
+        <br>
+        {{ gameSessionTitle[i] }}
+        <div *ngIf="s.winner == null">
+          <form class="form" #addForm="ngForm" (ngSubmit)="updateWinner(addForm)">
+            <div>
+              <button (click)="toggleAttendees(i)">Select Winner</button>
+            </div>
+            <div *ngIf="displayAttendees[i] == true">
+              <div *ngFor="let p of s.sessionAttendees">
+                <input type="radio" name="winner" value="{{ p.user.userName }}" id="buttonName" ngModel /> <label for="buttonName">{{ p.user.userName }}</label>
+              </div>
+            </div>
+            <input type="hidden" name="index" ngModel="{{ i }}" />
+            <br />
+              <button>Submit</button>
+          </form>
+        </div> 
+        <div *ngIf="s.winner !=null">
+          <p>Winner: {{ s.winner }}</p>
+        </div>
+      </div> 
+
+      </div>
+  </div>
 </div>
 
 

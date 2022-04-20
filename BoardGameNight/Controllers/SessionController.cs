@@ -37,6 +37,7 @@ namespace BoardGameNight.Controllers
             {
                 b.Owned = context.GameShelves.Find(b.OwnedId);
                 b.SessionAttendees = context.SessionAttendees.Include(u => u.User).Where(sa => sa.SessionId == b.Id).ToList();
+                b.Event = context.Events.Find(b.EventId);
 
             }
             return result;

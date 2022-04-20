@@ -1,4 +1,5 @@
 import { GameShelf } from "./game-shelf";
+import { GameNightEvent } from "./gamenightevent";
 
 export interface Session {
     id: number;
@@ -6,9 +7,9 @@ export interface Session {
     winner: string;
     enjoyment: number;
     ownedId: number;
-
+    event:GameNightEvent;
     owned: GameShelf;
-    events: any[];
+    events: GameNightEvent[];
     sessionAttendees: any[];
 }
 
