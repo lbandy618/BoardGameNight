@@ -5,6 +5,7 @@ import { ApiGame, GameElement } from '../ApiGame';
 import { BoardgameapiService } from '../boardgameapi.service';
 import { GameShelf } from '../game-shelf';
 import { GameShelfService } from '../game-shelf.service';
+import { User } from '../user';
 import { UserService } from '../user.service';
 
 @Component({
@@ -13,6 +14,7 @@ import { UserService } from '../user.service';
   styleUrls: ['./game-shelf.component.css']
 })
 export class GameShelfComponent implements OnInit {
+users:User[] = [];
 gameSearch:ApiGame = {} as ApiGame;
 selectedGame:GameElement = {} as GameElement;
 user: SocialUser = {} as SocialUser;
@@ -27,6 +29,9 @@ myGameShelf : GameElement [] = [];
     this.authService.authState.subscribe((user) => {
       this.user = user;
       this.loggedIn = (user != null);
+      this.userService.getUsers().subscribe((response:any) =>{
+        this.users = response;
+    })
       if (this.loggedIn){
         this.getGameShelfByLoginId(this.user.id);
       }
@@ -67,6 +72,12 @@ myGameShelf : GameElement [] = [];
     this.gameShelfService.addGameToGameShelf(apiGameId, this.user.id).subscribe((response) =>{
       console.log("game shelf has been updated")
     });
+  }
+
+  getLoggedInUser(userId:string):User{
+    let index = this.users.findIndex(u => u.loginId == userId);
+    //console.log(this.users[index])
+    return this.users[index];
   }
 
   // addGameToShelf(apiGameId:string, userId:number){

@@ -1,25 +1,33 @@
-<form #searchForm="ngForm" (ngSubmit)="getGameByName(searchForm)" class="centerText">
-    <input type="text" name="name" ngModel>
-    <button>Search</button>
-</form>
- 
-<div *ngFor="let g of gameSearch.games" class="centerText">
-    <button (click)="selectGameFromSearch(g)" class="centerText"> {{g.name}} </button>
-</div>
 
-<div>
-    <h1 class="centerText">
-       {{ selectedGame.name }} 
-    </h1>
-    <img src="{{ selectedGame.thumb_url}}">
-    <p [innerHTML]="selectedGame.description"></p>
+<div style=" padding:10px; background-color: #3a2081; ">
+    <form #searchForm="ngForm" (ngSubmit)="getGameByName(searchForm)" class="centerText">
+        <input type="text" name="name" ngModel>
+        <button>Search</button>
+    </form>
+     
+    <div *ngFor="let g of gameSearch.games" class="centerText">
+        <button (click)="selectGameFromSearch(g)" class="centerText"> {{g.name}} </button>
+    </div>
     
+    <div>
+        <h1 class="centerText">
+           {{ selectedGame.name }} 
+        </h1>
+        <img src="{{ selectedGame.thumb_url}}">
+        <p [innerHTML]="selectedGame.description"></p>
+        
+    </div>
+    
+    <div *ngIf="loggedIn" >
+        <button (click)="addGameToGameShelf(selectedGame.id)" >Add Game to Shelf</button>
+    </div>
+
+    <div>
+        <h2 class="d-flex justify-content-center text-white" style="margin:15px">{{getLoggedInUser(user.id).userName }}'s Game Shelf</h2>
+    </div>
+    <div *ngFor="let g of myGameShelf" class="d-flex" style="margin:5px">
+        <img style="width:75px" class="col-2" src="{{g.thumb_url}}">
+        <p class="text-white text-center col-10">{{ g.name }}</p>
+    </div>
 </div>
 
-<div *ngIf="loggedIn" >
-    <button (click)="addGameToGameShelf(selectedGame.id)" >Add Game to Shelf</button>
-</div>
-
-<div *ngFor="let g of myGameShelf">
-    {{ g.name }}
-</div>
