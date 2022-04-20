@@ -3,7 +3,7 @@ import { ThisReceiver } from '@angular/compiler';
 import { Component, Inject, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { SocialAuthService, SocialUser } from 'angularx-social-login';
-import { ApiGame } from '../ApiGame';
+import { ApiGame, GameElement } from '../ApiGame';
 import { BoardgameapiService } from '../boardgameapi.service';
 import { GameShelf } from '../game-shelf';
 import { GameShelfService } from '../game-shelf.service';
@@ -29,6 +29,7 @@ export class UserProfileComponent implements OnInit {
   gameEvents: GameNightEvent [] = [];
   displayAttendees: boolean [] = [];
   displayForm:boolean = false;
+  gameSessionImage: string[] = [];
   
 
   constructor(private http:HttpClient, @Inject('BASE_URL') private baseUrl:string, private userService:UserService, private authService: SocialAuthService, private sessionService:SessionService, private boardGameApiService: BoardgameapiService, private gameNightEventService: GameNightEventService) { }
@@ -51,7 +52,8 @@ export class UserProfileComponent implements OnInit {
          }
          this.boardGameApiService.getBoardGameByID(gameIdArray).subscribe((response:ApiGame) => {
           console.log(response);
-          this.gameSessionTitle = response.games.map(x => x.name)
+          this.gameSessionTitle = response.games.map(x => x.name);
+          this.gameSessionImage = response.games.map(g => g.thumb_url);
           console.log(this.gameSessionTitle)
           this.getEventBySession(this.sessions.map(s => s.id));
           //console.log(this.gameEvents)
@@ -86,6 +88,27 @@ export class UserProfileComponent implements OnInit {
     this.gameNightEventService.getEventBySessionId(newSession).subscribe((response:any) => {
     console.log(response)
     this.gameEvents = response;
+    for(let i = 0; i < response.length; i++){
+      this.sessions[i].event = this.gameEvents[i];
+    }
+      console.log(this.sessions)
+      this.sessions.sort((a,b) => {
+        let da = new Date(a.event.date),
+        db = new Date(b.event.date);
+        console.log(da.getTime());
+        console.log(db.getTime());
+        if(da.getTime() < db.getTime()){
+          return -1;
+        }
+        if(da.getTime() < db.getTime()){
+          return 1;
+        }
+        else{
+          return 0;
+        }
+        
+      })
+      console.log(this.sessions)
     })
   }
 
@@ -102,9 +125,9 @@ export class UserProfileComponent implements OnInit {
         winner: newWinner,
         enjoyment: 0,
         ownedId: 0,
-  
-        owned: {} as GameShelf,
         events: [],
+        owned: {} as GameShelf,
+        event: {} as GameNightEvent,
         sessionAttendees: []
       }
       this.sessionService.editWinner(updatedSession, this.user.id).subscribe((response:any) => {

@@ -21,10 +21,11 @@
 </div>
 
 <div>
-  <h5>Game Session Log</h5>
+  <h5 class="text-color">Game Session Log</h5>
   <div *ngIf="gameSessionTitle.length > 0">
     <div *ngFor="let s of sessions; index as i">
       <div class="session">
+        <img style="width:75px" src="{{ gameSessionImage[i] }}" />
         {{ gameEvents[i].date }} 
         <br>
         {{ gameSessionTitle[i] }}
