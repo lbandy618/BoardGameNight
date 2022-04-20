@@ -97,18 +97,18 @@ import { UserService } from '../user.service';
       })
         console.log(selectedGameIds)
        let sortedArray:string[] = selectedGameIds.sort();
-        let results:string[] = [];
-        for(let i = 0; i < sortedArray.length - 1; i++){
-          if(sortedArray[i+1] == sortedArray[i]){
-            results.push(sortedArray[i]);
-          }
-        }
-          console.log(results);
-          console.log("this is showing only dups");
-          if(results.length == 0){ //no dubs found
-            results = selectedGameIds;
-          }
-          this.boardGameApiService.getBoardGameByID(results).subscribe((response:ApiGame)=>{
+      //   let results:string[] = [];
+      //   for(let i = 0; i < sortedArray.length - 1; i++){
+      //     if(sortedArray[i+1] == sortedArray[i]){
+      //       results.push(sortedArray[i]);
+      //     }
+      //   }
+      //     console.log(results);
+      //     console.log("this is showing only dups");
+      //     if(results.length == 0){ //no dubs found
+      //       results = selectedGameIds;
+      //     }
+          this.boardGameApiService.getBoardGameByID(sortedArray).subscribe((response:ApiGame)=>{
           console.log(response);
           console.log("showing full api response");
           this.apiGameList = response.games;
@@ -117,7 +117,9 @@ import { UserService } from '../user.service';
               console.log(response.games);
               console.log("grabbed cat id out of cat array")
               g.categories.forEach(c => {
-              categoryIds.push(c.id);
+                if(!categoryIds.includes(c.id)){
+                  categoryIds.push(c.id);
+                }
           })
           console.log(categoryIds);
           this.selectedCategoryIds = categoryIds;
@@ -129,9 +131,12 @@ import { UserService } from '../user.service';
 
   getBoardGameCategoriesNames(){
     this.selectedCategoryIds.forEach(c => { 
-    this.selectedCategoryNames.push(Category.getCategoryNameById(c));
+      if(!this.selectedCategoryNames.includes(Category.getCategoryNameById(c))){
+        
+        this.selectedCategoryNames.push(Category.getCategoryNameById(c));
+    }
     })
-    this.selectedCategoryNames = Array.from(new Set(this.selectedCategoryNames));
+    this.selectedCategoryNames = Array.from(new Set(this.selectedCategoryNames)).sort();
     console.log(this.selectedCategoryNames);
     
   }
