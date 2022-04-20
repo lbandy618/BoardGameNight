@@ -25,9 +25,14 @@
     <div>
         <h2 class="d-flex justify-content-center text-white" style="margin:15px">{{getLoggedInUser(user.id).userName }}'s Game Shelf</h2>
     </div>
-    <div *ngFor="let g of myGameShelf" class="d-flex" style="margin:5px">
-        <img style="width:75px" class="col-2" src="{{g.thumb_url}}">
-        <p class="text-white text-center col-10">{{ g.name }}</p>
+    <div class="row text-center">
+        <div *ngFor="let g of myGameShelf" class="col-6 col-sm-3" style="height:230px; margin-top: 5px;" >
+            <div class="shelf" style="height: 100%;" >
+                <p class="text-white text-center">{{ g.name }}</p>
+                <img style="height: 100px; width: 100px;" src="{{g.thumb_url}}">
+            </div>
+        </div>
     </div>
+    
 </div>
 
