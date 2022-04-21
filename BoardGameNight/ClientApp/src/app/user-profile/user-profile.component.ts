@@ -65,9 +65,28 @@ export class UserProfileComponent implements OnInit {
   }
 
   updateProfile(form:NgForm):any{
-    let newUserName = form.form.value.userName;
-    let newAge = form.form.value.age;
-    let newSummary = form.form.value.summary;
+    let newUserName = "";
+    if(form.form.value.userName == ""){
+      newUserName = this.getLoggedInUser(this.user.id).userName
+    }
+    else{
+      newUserName = form.form.value.userName;
+    }
+    let newSummary = "";
+    if(form.form.value.summary == ""){
+      newSummary = this.getLoggedInUser(this.user.id).summary
+    }
+    else{
+      newSummary = form.form.value.summary;
+    }
+    let newAge = 0;
+    if(form.form.value.age == 0){
+      newAge = this.getLoggedInUser(this.user.id).age
+    }
+    else{
+      newAge = form.form.value.age;
+    }
+
     let updatedProfile:User = {
       userName: newUserName,
       age: newAge,
@@ -81,7 +100,10 @@ export class UserProfileComponent implements OnInit {
     }
     this.userService.updateProfile(updatedProfile).subscribe((response:any) => {
       console.log("profile has been updated")
-      this.routerService.navigate(["/user-profile"]);
+      let index = this.users.findIndex(u => u.loginId == this.user.id)
+      this.users[index].userName = newUserName;
+      this.users[index].summary = newSummary;
+      // this.routerService.navigate(["/user-profile"]);
     })
   }
 

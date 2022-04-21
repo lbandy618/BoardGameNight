@@ -34,7 +34,7 @@
       <div *ngFor="let s of sessions; index as i">
         <div class="session">
           <img style="width:75px" src="{{ gameSessionImage[i] }}" />
-          {{ gameEvents[i].date }} 
+          {{ gameEvents[i].date.slice(0,-9) }} 
           
 
           <br>
