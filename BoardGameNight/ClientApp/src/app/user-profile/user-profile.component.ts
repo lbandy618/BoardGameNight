@@ -100,7 +100,7 @@ export class UserProfileComponent implements OnInit {
         if(da.getTime() < db.getTime()){
           return -1;
         }
-        if(da.getTime() < db.getTime()){
+        if(da.getTime() > db.getTime()){
           return 1;
         }
         else{

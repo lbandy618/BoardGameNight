@@ -53,6 +53,10 @@ namespace BoardGameNight.Controllers
             GameShelf result = new GameShelf();
             result.ApigameId = apiGameId;
             result.UserId = context.Users.First(u => u.LoginId == userId).Id;
+            if (context.GameShelves.Where(u => u.UserId == result.UserId).Any(g => g.ApigameId == apiGameId)) //prevents duplicates from being added
+            {
+                return new GameShelf();
+            }
             context.GameShelves.Add(result);
             context.SaveChanges();
             return result;

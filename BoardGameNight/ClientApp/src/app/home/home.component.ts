@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
 import { concat } from 'rxjs';
 import { ApiGame, GameElement } from '../ApiGame';
 import { BoardgameapiService } from '../boardgameapi.service';
@@ -30,7 +31,7 @@ import { UserService } from '../user.service';
   apiGameList: GameElement[] = [];
   randomGame: GameElement = {} as GameElement;
 
-  constructor(private sessionService:SessionService, private gameNightEventService: GameNightEventService, private userService: UserService, private gameShelfService: GameShelfService, private boardGameApiService: BoardgameapiService) { }
+  constructor(private routerService:Router, private sessionService:SessionService, private gameNightEventService: GameNightEventService, private userService: UserService, private gameShelfService: GameShelfService, private boardGameApiService: BoardgameapiService) { }
 
 
   ngOnInit(): void {
@@ -162,7 +163,7 @@ import { UserService } from '../user.service';
       newEvent.date = form.form.value.date;
       newEvent.sessionId = newSession.id+"";
       this.gameNightEventService.createEvent(newEvent).subscribe((response:any)=>{
-        console.log(response);
+        console.log(response); 
       })
     }
 
@@ -176,6 +177,7 @@ import { UserService } from '../user.service';
           console.log(response1);
         });
         this.createEvent(form, response);
+        this.routerService.navigate(["/user-profile"]);
       });
     }
 
