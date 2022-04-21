@@ -22,6 +22,7 @@ user: SocialUser = {} as SocialUser;
 loggedIn: boolean = false;
 gameshelf : GameShelf [] =[];
 myGameShelf : GameElement [] = [];
+status: string = "";
 
   constructor(private routerService:Router, private apiService:BoardgameapiService, private gameShelfService:GameShelfService, private userService:UserService, private authService: SocialAuthService) { }
 
@@ -72,8 +73,11 @@ myGameShelf : GameElement [] = [];
     apiGameId = this.selectedGame.id;
     this.gameShelfService.addGameToGameShelf(apiGameId, this.user.id).subscribe((response) =>{
       console.log("game shelf has been updated")
-      this.myGameShelf.push(this.selectedGame);
-      console.log(response);
+      if(this.selectedGame.name != null){
+        this.myGameShelf.push(this.selectedGame);
+        console.log(response);
+        this.status = `${this.selectedGame.name} has been added to your shelf.`
+      }
     });
     
   }
@@ -82,6 +86,10 @@ myGameShelf : GameElement [] = [];
     let index = this.users.findIndex(u => u.loginId == userId);
     //console.log(this.users[index])
     return this.users[index];
+  }
+
+  clearStatus(){
+    this.status = "";
   }
 
   // addGameToShelf(apiGameId:string, userId:number){

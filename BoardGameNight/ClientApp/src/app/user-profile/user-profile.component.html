@@ -2,7 +2,7 @@
   <div  class="text-color">
     <div *ngIf="getLoggedInUser(user.id) != null">
       <div>
-        <h4>{{ getLoggedInUser(user.id).userName }}</h4>
+        <h4 class="centerText">{{ getLoggedInUser(user.id).userName }}'s Profile</h4>
       </div> 
       <br>
       <div class="d-flex ">
@@ -13,10 +13,12 @@
     </div>
   </div>
   <button class="button" (click)="toggleFormDisplay()">Edit Profile</button>
+  <br>
   <div *ngIf="displayForm">
     <div class="text-color">
       <form class="form" #addForm="ngForm" (ngSubmit)="updateProfile(addForm)">
         Username:<input type="text" name="userName" ngModel />
+        <br>
         <!-- Age:<input type="text" name="age" ngModel /> -->
         About:<input type="text" name="summary" ngModel />
         <br />
@@ -26,12 +28,15 @@
   </div>
   
   <div>
+    <br>
     <h5 class="text-color">Game Session Log</h5>
     <div *ngIf="gameSessionTitle.length > 0">
       <div *ngFor="let s of sessions; index as i">
         <div class="session">
           <img style="width:75px" src="{{ gameSessionImage[i] }}" />
           {{ gameEvents[i].date }} 
+          
+
           <br>
           {{ gameSessionTitle[i] }}
           <div *ngIf="s.winner == null">
