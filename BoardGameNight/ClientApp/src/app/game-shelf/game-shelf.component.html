@@ -9,13 +9,12 @@
         <button (click)="selectGameFromSearch(g)" class="centerText"> {{g.name}} </button>
     </div>
     
-    <div>
-        <h1 class="centerText">
+    <div class="text-center" *ngIf="selectedGame.description != null">
+        <h1 class="centerText text-white">
            {{ selectedGame.name }} 
         </h1>
-        <img src="{{ selectedGame.thumb_url}}">
-        <p [innerHTML]="selectedGame.description"></p>
-        
+        <img style="width:250px; height:250px; margin-top: 5px;" src="{{ selectedGame.thumb_url}}">
+        <p class="description" [innerHTML]="selectedGame.description"></p>
     </div>
     
     <div *ngIf="loggedIn" >
