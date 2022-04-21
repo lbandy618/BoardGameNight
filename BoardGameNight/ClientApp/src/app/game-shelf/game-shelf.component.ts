@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
 import { SocialAuthService, SocialUser } from 'angularx-social-login';
 import { ApiGame, GameElement } from '../ApiGame';
 import { BoardgameapiService } from '../boardgameapi.service';
@@ -22,7 +23,7 @@ loggedIn: boolean = false;
 gameshelf : GameShelf [] =[];
 myGameShelf : GameElement [] = [];
 
-  constructor(private apiService:BoardgameapiService, private gameShelfService:GameShelfService, private userService:UserService, private authService: SocialAuthService) { }
+  constructor(private routerService:Router, private apiService:BoardgameapiService, private gameShelfService:GameShelfService, private userService:UserService, private authService: SocialAuthService) { }
 
   ngOnInit(): void {
     
@@ -71,7 +72,10 @@ myGameShelf : GameElement [] = [];
     apiGameId = this.selectedGame.id;
     this.gameShelfService.addGameToGameShelf(apiGameId, this.user.id).subscribe((response) =>{
       console.log("game shelf has been updated")
+      this.myGameShelf.push(this.selectedGame);
+      console.log(response);
     });
+    
   }
 
   getLoggedInUser(userId:string):User{
